@@ -45,17 +45,26 @@ jobs:
             | tee xcodebuild.log
         continue-on-error: true
 
-      # Conversion de la couverture au format générique
-      - name: Convert coverage to generic format
+      # Conversion de la couverture au format SonarQube générique
+      - name: Convert coverage to SonarQube format
         run: |
-          xcrun xccov view --report --json DerivedData/Logs/Test/*.xcresult > coverage.json
+          # Trouver le fichier .xcresult
+          XCRESULT_PATH=$(find DerivedData/Logs/Test -name "*.xcresult" | head -n 1)
+          echo "XCResult path: $XCRESULT_PATH"
           
-          # Installation de xcresultparser
-          brew install a7ex/homebrew-formulae/xcresultparser
+          # Extraire la couverture en JSON
+          xcrun xccov view --report --json "$XCRESULT_PATH" > coverage.json
           
-          # Conversion en format SonarQube générique
-          xcresultparser --output-format sonarqube \
-            DerivedData/Logs/Test/*.xcresult > sonarqube-coverage.xml
+          # Télécharger le script de conversion
+          curl -o xccov-to-sonarqube.sh https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/swift-coverage-example/xccov-to-sonarqube-generic.sh
+          chmod +x xccov-to-sonarqube.sh
+          
+          # Convertir au format SonarQube
+          ./xccov-to-sonarqube.sh coverage.json > sonarqube-coverage.xml
+          
+          # Vérifier le contenu
+          echo "Coverage XML generated:"
+          head -20 sonarqube-coverage.xml
         continue-on-error: true
 
       # SwiftLint sur tout le projet
