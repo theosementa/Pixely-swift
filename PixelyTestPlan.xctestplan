@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "30620A93-7963-4403-8BED-829748166470",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Pixely.xcodeproj",
+        "identifier" : "D91EE6A12EB6905500EE4CB0",
+        "name" : "PixelyTests"
+      }
+    }
+  ],
+  "version" : 1
+}

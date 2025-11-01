@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		D91EE7572EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		D91EE6A32EB6905500EE4CB0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		D91EE68E2EB6905400EE4CB0 /* Pixely.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pixely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91EE6A22EB6905500EE4CB0 /* PixelyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixelyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91EE6AC2EB6905500EE4CB0 /* PixelyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixelyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PixelyTestPlan.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -88,6 +93,7 @@
 		D91EE6852EB6905400EE4CB0 = {
 			isa = PBXGroup;
 			children = (
+				D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */,
 				D91EE6902EB6905400EE4CB0 /* Pixely */,
 				D91EE6A52EB6905500EE4CB0 /* PixelyTests */,
 				D91EE6AF2EB6905500EE4CB0 /* PixelyUITests */,
@@ -225,6 +231,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D91EE7572EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
