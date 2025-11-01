@@ -31,6 +31,32 @@ jobs:
         timeout-minutes: 8
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          
+          # Exécution des tests avec couverture
+      - name: Run tests with coverage
+        run: |
+          xcodebuild test \
+            -project Pixely.xcodeproj \
+            -scheme Pixely \
+            -testPlan PixelyTestPlan \
+            -destination 'platform=iOS Simulator,name=iPhone 15,OS=latest' \
+            -enableCodeCoverage YES \
+            -derivedDataPath DerivedData \
+            | tee xcodebuild.log
+        continue-on-error: true
+
+      # Conversion de la couverture au format générique
+      - name: Convert coverage to generic format
+        run: |
+          xcrun xccov view --report --json DerivedData/Logs/Test/*.xcresult > coverage.json
+          
+          # Installation de xcresultparser
+          brew install a7ex/homebrew-formulae/xcresultparser
+          
+          # Conversion en format SonarQube générique
+          xcresultparser --output-format sonarqube \
+            DerivedData/Logs/Test/*.xcresult > sonarqube-coverage.xml
+        continue-on-error: true
 
       # SwiftLint sur tout le projet
       - name: Install and Run SwiftLint
