@@ -1,0 +1,61 @@
+name: Quality Phase
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build:
+    name: Build & Analysis
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5.3.0
+        with:
+          python-version: '3.12'
+
+      # Configuration Git GLOBALE pour tous les outils
+      - name: Configure git authentication globally
+        run: git config --global url."https://${GH_TOKEN}@github.com/theosementa/".insteadOf "https://github.com/theosementa/"
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      # Résolution des dépendances
+      - name: Resolve Swift Package dependencies
+        run: xcodebuild -resolvePackageDependencies -verbose
+        timeout-minutes: 8
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      # SwiftLint sur tout le projet
+      - name: Install and Run SwiftLint
+        run: | 
+          brew install swiftlint
+          swiftlint lint --quiet --reporter json > sonarqube-swiftlint.json
+        continue-on-error: true
+
+      # Mobsfscan en SARIF
+      - name: mobsfscan
+        run: |
+          pip install mobsfscan
+          mobsfscan . --sarif > mobsfscan-report.sarif
+          echo "Mobsfscan SARIF completed, checking output..."
+          if [ -f "mobsfscan-report.sarif" ]; then
+            echo "SARIF file created successfully"
+            head -20 mobsfscan-report.sarif
+          else
+            echo "SARIF file not found!"
+          fi
+
+      # SonarQube
+      - uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        with:
+          args: -X
