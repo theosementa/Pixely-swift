@@ -55,6 +55,16 @@ jobs:
           # Extraire la couverture en JSON
           xcrun xccov view --report --json "$XCRESULT_PATH" > coverage.json
           
+          # Vérifier que le JSON est créé
+          if [ ! -f "coverage.json" ] || [ ! -s "coverage.json" ]; then
+            echo "Error: coverage.json not created or empty"
+            cat coverage.json || echo "File does not exist"
+            exit 1
+          fi
+          
+          echo "Coverage JSON created successfully:"
+          ls -lh coverage.json
+          
           # Télécharger le script de conversion
           curl -o xccov-to-sonarqube.sh https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/swift-coverage-example/xccov-to-sonarqube-generic.sh
           chmod +x xccov-to-sonarqube.sh
@@ -65,7 +75,6 @@ jobs:
           # Vérifier le contenu
           echo "Coverage XML generated:"
           head -20 sonarqube-coverage.xml
-        continue-on-error: true
 
       # SwiftLint sur tout le projet
       - name: Install and Run SwiftLint
