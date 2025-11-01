@@ -52,25 +52,12 @@ jobs:
           XCRESULT_PATH=$(find DerivedData/Logs/Test -name "*.xcresult" | head -n 1)
           echo "XCResult path: $XCRESULT_PATH"
           
-          # Extraire la couverture en JSON
-          xcrun xccov view --report --json "$XCRESULT_PATH" > coverage.json
-          
-          # Vérifier que le JSON est créé
-          if [ ! -f "coverage.json" ] || [ ! -s "coverage.json" ]; then
-            echo "Error: coverage.json not created or empty"
-            cat coverage.json || echo "File does not exist"
-            exit 1
-          fi
-          
-          echo "Coverage JSON created successfully:"
-          ls -lh coverage.json
-          
           # Télécharger le script de conversion
           curl -o xccov-to-sonarqube.sh https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/swift-coverage-example/xccov-to-sonarqube-generic.sh
           chmod +x xccov-to-sonarqube.sh
           
           # Convertir au format SonarQube
-          ./xccov-to-sonarqube.sh coverage.json > sonarqube-coverage.xml
+          ./xccov-to-sonarqube.sh "$XCRESULT_PATH" > sonarqube-coverage.xml
           
           # Vérifier le contenu
           echo "Coverage XML generated:"
