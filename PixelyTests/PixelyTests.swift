@@ -11,9 +11,9 @@ struct PixelyTests {
 
     @Test
     func example() async throws {
-        let a = 4
-        let b = 3
-        let sum = a + b
+        let aValue = 4
+        let bValue = 3
+        let sum = aValue + bValue
         #expect(sum == 7)
     }
 
