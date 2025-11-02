@@ -33,14 +33,4 @@ public extension CoreDataStack {
         return container.viewContext
     }
     
-    func saveContext() {
-        if viewContext.hasChanges {
-            do {
-                try viewContext.save()
-            } catch {
-                print("⚠️ \(error.localizedDescription)")
-            }
-        }
-    }
-    
 }

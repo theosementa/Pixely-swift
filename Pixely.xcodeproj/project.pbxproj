@@ -10,6 +10,7 @@
 		D91EE7572EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */; };
 		D91EE75C2EB73B8800EE4CB0 /* Persistence in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE75B2EB73B8800EE4CB0 /* Persistence */; };
 		D91EE7FC2EB73D4C00EE4CB0 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE7FB2EB73D4C00EE4CB0 /* Models */; };
+		D91EE8902EB7656400EE4CB0 /* Repositories in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE88F2EB7656400EE4CB0 /* Repositories */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +29,7 @@
 		D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PixelyTestPlan.xctestplan; sourceTree = "<group>"; };
 		D91EE7592EB73A3100EE4CB0 /* Persistence */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Persistence; sourceTree = "<group>"; };
 		D91EE7EE2EB73C0300EE4CB0 /* Models */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Models; sourceTree = "<group>"; };
+		D91EE88E2EB763C700EE4CB0 /* Repositories */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Repositories; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -66,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D91EE8902EB7656400EE4CB0 /* Repositories in Frameworks */,
 				D91EE7FC2EB73D4C00EE4CB0 /* Models in Frameworks */,
 				D91EE75C2EB73B8800EE4CB0 /* Persistence in Frameworks */,
 			);
@@ -84,6 +87,7 @@
 		D91EE6852EB6905400EE4CB0 = {
 			isa = PBXGroup;
 			children = (
+				D91EE88E2EB763C700EE4CB0 /* Repositories */,
 				D91EE7EE2EB73C0300EE4CB0 /* Models */,
 				D91EE7592EB73A3100EE4CB0 /* Persistence */,
 				D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */,
@@ -134,6 +138,7 @@
 			packageProductDependencies = (
 				D91EE75B2EB73B8800EE4CB0 /* Persistence */,
 				D91EE7FB2EB73D4C00EE4CB0 /* Models */,
+				D91EE88F2EB7656400EE4CB0 /* Repositories */,
 			);
 			productName = Pixely;
 			productReference = D91EE68E2EB6905400EE4CB0 /* Pixely.app */;
@@ -573,6 +578,10 @@
 		D91EE7FB2EB73D4C00EE4CB0 /* Models */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Models;
+		};
+		D91EE88F2EB7656400EE4CB0 /* Repositories */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Repositories;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
