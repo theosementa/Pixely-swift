@@ -32,7 +32,14 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           
-          # Exécution des tests avec couverture
+      # SwiftLint sur tout le projet
+      - name: Install and Run SwiftLint
+        run: | 
+          brew install swiftlint
+          swiftlint lint --quiet --reporter json > sonarqube-swiftlint.json
+        continue-on-error: true
+          
+      # Exécution des tests avec couverture
       - name: Run tests with coverage
         run: |
           xcodebuild test \
@@ -62,13 +69,6 @@ jobs:
           # Vérifier le contenu
           echo "Coverage XML generated:"
           head -20 sonarqube-coverage.xml
-
-      # SwiftLint sur tout le projet
-      - name: Install and Run SwiftLint
-        run: | 
-          brew install swiftlint
-          swiftlint lint --quiet --reporter json > sonarqube-swiftlint.json
-        continue-on-error: true
 
       # Mobsfscan en SARIF
       - name: mobsfscan
