@@ -27,7 +27,7 @@ jobs:
 
       # Résolution des dépendances
       - name: Resolve Swift Package dependencies
-        run: xcodebuild -resolvePackageDependencies -verbose
+        run: xcodebuild -resolvePackageDependencies
         timeout-minutes: 8
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -57,7 +57,6 @@ jobs:
         run: |
           # Trouver le fichier .xcresult
           XCRESULT_PATH=$(find DerivedData/Logs/Test -name "*.xcresult" | head -n 1)
-          echo "XCResult path: $XCRESULT_PATH"
           
           # Télécharger le script de conversion
           curl -o xccov-to-sonarqube.sh https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/swift-coverage-example/xccov-to-sonarqube-generic.sh
@@ -65,23 +64,12 @@ jobs:
           
           # Convertir au format SonarQube
           ./xccov-to-sonarqube.sh "$XCRESULT_PATH" > sonarqube-coverage.xml
-          
-          # Vérifier le contenu
-          echo "Coverage XML generated:"
-          head -20 sonarqube-coverage.xml
 
       # Mobsfscan en SARIF
       - name: mobsfscan
         run: |
           pip install mobsfscan
           mobsfscan . --sarif > mobsfscan-report.sarif
-          echo "Mobsfscan SARIF completed, checking output..."
-          if [ -f "mobsfscan-report.sarif" ]; then
-            echo "SARIF file created successfully"
-            head -20 mobsfscan-report.sarif
-          else
-            echo "SARIF file not found!"
-          fi
 
       # SonarQube
       - uses: sonarsource/sonarqube-scan-action@master
