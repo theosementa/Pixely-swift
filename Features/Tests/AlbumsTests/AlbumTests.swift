@@ -1,6 +1,10 @@
 import Testing
 @testable import Albums
 
-@Test func example() async throws {
-    // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+@Test
+func example2() async throws {
+    let aValue = 4
+    let bValue = 3
+    let sum = aValue + bValue
+    #expect(sum == 7)
 }

@@ -8,9 +8,14 @@ opt_in_rules:
 - empty_string
 
 excluded:
-- Carthage
-- Pods
-- SwiftLint/Common/3rdPartyLib
+  - Pods
+  - Carthage
+  - .build
+  - DerivedData
+  - vendor
+  - "**/Generated"
+  - "**/.build"
+  - "**/SourcePackages"
 
 line_length:
     warning: 150
