@@ -11,6 +11,10 @@
 		D91EE75C2EB73B8800EE4CB0 /* Persistence in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE75B2EB73B8800EE4CB0 /* Persistence */; };
 		D91EE7FC2EB73D4C00EE4CB0 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE7FB2EB73D4C00EE4CB0 /* Models */; };
 		D91EE8902EB7656400EE4CB0 /* Repositories in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE88F2EB7656400EE4CB0 /* Repositories */; };
+		D91EE8932EB779AD00EE4CB0 /* Stores in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE8922EB779AD00EE4CB0 /* Stores */; };
+		D91EE8962EB7945100EE4CB0 /* Albums in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE8952EB7945100EE4CB0 /* Albums */; };
+		D91EE8982EB7945100EE4CB0 /* Gallery in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE8972EB7945100EE4CB0 /* Gallery */; };
+		D91EE89B2EB7949800EE4CB0 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE89A2EB7949800EE4CB0 /* DesignSystem */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +34,9 @@
 		D91EE7592EB73A3100EE4CB0 /* Persistence */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Persistence; sourceTree = "<group>"; };
 		D91EE7EE2EB73C0300EE4CB0 /* Models */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Models; sourceTree = "<group>"; };
 		D91EE88E2EB763C700EE4CB0 /* Repositories */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Repositories; sourceTree = "<group>"; };
+		D91EE8912EB7772900EE4CB0 /* Stores */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Stores; sourceTree = "<group>"; };
+		D91EE8942EB792B300EE4CB0 /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Features; sourceTree = "<group>"; };
+		D91EE8992EB7946C00EE4CB0 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystem; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -63,8 +70,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D91EE8962EB7945100EE4CB0 /* Albums in Frameworks */,
 				D91EE8902EB7656400EE4CB0 /* Repositories in Frameworks */,
+				D91EE89B2EB7949800EE4CB0 /* DesignSystem in Frameworks */,
 				D91EE7FC2EB73D4C00EE4CB0 /* Models in Frameworks */,
+				D91EE8982EB7945100EE4CB0 /* Gallery in Frameworks */,
+				D91EE8932EB779AD00EE4CB0 /* Stores in Frameworks */,
 				D91EE75C2EB73B8800EE4CB0 /* Persistence in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -82,9 +93,12 @@
 		D91EE6852EB6905400EE4CB0 = {
 			isa = PBXGroup;
 			children = (
-				D91EE88E2EB763C700EE4CB0 /* Repositories */,
+				D91EE8992EB7946C00EE4CB0 /* DesignSystem */,
+				D91EE8942EB792B300EE4CB0 /* Features */,
 				D91EE7EE2EB73C0300EE4CB0 /* Models */,
 				D91EE7592EB73A3100EE4CB0 /* Persistence */,
+				D91EE88E2EB763C700EE4CB0 /* Repositories */,
+				D91EE8912EB7772900EE4CB0 /* Stores */,
 				D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */,
 				D91EE6902EB6905400EE4CB0 /* Pixely */,
 				D91EE6A52EB6905500EE4CB0 /* PixelyTests */,
@@ -133,6 +147,10 @@
 				D91EE75B2EB73B8800EE4CB0 /* Persistence */,
 				D91EE7FB2EB73D4C00EE4CB0 /* Models */,
 				D91EE88F2EB7656400EE4CB0 /* Repositories */,
+				D91EE8922EB779AD00EE4CB0 /* Stores */,
+				D91EE8952EB7945100EE4CB0 /* Albums */,
+				D91EE8972EB7945100EE4CB0 /* Gallery */,
+				D91EE89A2EB7949800EE4CB0 /* DesignSystem */,
 			);
 			productName = Pixely;
 			productReference = D91EE68E2EB6905400EE4CB0 /* Pixely.app */;
@@ -576,6 +594,22 @@
 		D91EE88F2EB7656400EE4CB0 /* Repositories */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Repositories;
+		};
+		D91EE8922EB779AD00EE4CB0 /* Stores */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Stores;
+		};
+		D91EE8952EB7945100EE4CB0 /* Albums */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Albums;
+		};
+		D91EE8972EB7945100EE4CB0 /* Gallery */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Gallery;
+		};
+		D91EE89A2EB7949800EE4CB0 /* DesignSystem */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignSystem;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

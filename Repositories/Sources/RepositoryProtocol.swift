@@ -20,7 +20,7 @@ public protocol RepositoryProtocol {
 
 extension RepositoryProtocol {
     
-    static func fetchAll() throws -> [Entity] {
+    public static func fetchAll() throws -> [Entity] {
         let request = Entity.fetchRequest()
         return try CoreDataStack.shared.viewContext.fetch(request) as? [Entity] ?? []
     }
