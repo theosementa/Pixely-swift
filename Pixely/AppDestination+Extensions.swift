@@ -33,8 +33,12 @@ extension AppDestination {
         switch destination {
         case .list:
             AlbumsListScreen()
-        default:
-            EmptyView()
+        case .create:
+            AddAlbumScreen()
+        case .update(let albumId):
+            AddAlbumScreen(albumId: albumId)
+        case .detail(let albumId):
+            AlbumDetailScreen(albumId: albumId)
         }
     }
     

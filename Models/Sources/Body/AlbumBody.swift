@@ -18,7 +18,7 @@ public extension AlbumBody {
     
     static func create(
         name: String,
-        emoji: String,
+        emoji: String? = nil,
         colorHex: String
     ) -> AlbumBody {
         return .init(

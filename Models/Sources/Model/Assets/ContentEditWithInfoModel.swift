@@ -15,7 +15,7 @@ public struct ContentEditWithInfoModel: @unchecked Sendable {
     
     public init(
         content: PHContentEditingInput? = nil,
-        info: [AnyHashable : Any]? = nil
+        info: [AnyHashable: Any]? = nil
     ) {
         self.content = content
         self.info = info

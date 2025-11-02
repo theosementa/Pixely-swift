@@ -11,14 +11,17 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Repositories"),
-        .package(path: "../Models")
+        .package(path: "../Models"),
+        
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", exact: "1.10.0")
     ],
     targets: [
         .target(
             name: "Stores",
             dependencies: [
                 "Repositories",
-                "Models"
+                "Models",
+                .product(name: "Dependencies", package: "swift-dependencies")
             ]
         ),
         .testTarget(

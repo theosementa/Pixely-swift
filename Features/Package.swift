@@ -17,7 +17,10 @@ let package = Package(
         .package(path: "../Models"),
         .package(path: "../Stores"),
         .package(path: "../DesignSystem"),
-        .package(path: "../Utilities")
+        .package(path: "../Utilities"),
+        .package(path: "../Navigation"),
+        
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", exact: "1.10.0")
     ],
     targets: [
         .target(
@@ -25,7 +28,9 @@ let package = Package(
             dependencies: [
                 "Models",
                 "Stores",
-                "DesignSystem"
+                "DesignSystem",
+                "Navigation",
+                .product(name: "Dependencies", package: "swift-dependencies")
             ]
         ),
         .testTarget(name: "AlbumsTests", dependencies: ["Albums"]),
@@ -36,7 +41,8 @@ let package = Package(
                 "Models",
                 "Stores",
                 "DesignSystem",
-                "PhotoAsset"
+                "PhotoAsset",
+                "Navigation"
             ]
         ),
         .testTarget(name: "GalleryTests", dependencies: ["Gallery"]),

@@ -10,5 +10,7 @@ import NavigationKit
 
 public enum AlbumDestination: DestinationItem {
     case list
+    case create
+    case update(albumId: UUID)
     case detail(albumId: UUID)
 }

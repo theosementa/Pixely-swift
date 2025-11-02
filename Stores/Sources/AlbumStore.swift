@@ -8,11 +8,10 @@
 import Foundation
 import Models
 import Repositories
+import Dependencies
 
 @MainActor @Observable
-public final class AlbumStore {
-    public static let shared = AlbumStore()
-    
+public final class AlbumStore {    
     public var albums: [AlbumModel] = []
 }
 
@@ -35,5 +34,18 @@ public extension AlbumStore {
         } catch {
             
         }
+    }
+}
+
+// MARK: - Dependencies
+@MainActor
+struct AlbumStoreKey: @preconcurrency DependencyKey {
+    public static let liveValue: AlbumStore = .init()
+}
+
+public extension DependencyValues {
+    var albumStore: AlbumStore {
+        get { self[AlbumStoreKey.self] }
+        set { self[AlbumStoreKey.self] = newValue }
     }
 }

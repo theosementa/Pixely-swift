@@ -14,9 +14,72 @@
   "testTargets" : [
     {
       "target" : {
+        "containerPath" : "container:Features",
+        "identifier" : "AlbumsTests",
+        "name" : "AlbumsTests"
+      }
+    },
+    {
+      "target" : {
         "containerPath" : "container:Pixely.xcodeproj",
         "identifier" : "D91EE6A12EB6905500EE4CB0",
         "name" : "PixelyTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Features",
+        "identifier" : "GalleryTests",
+        "name" : "GalleryTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Features",
+        "identifier" : "PhotoAssetTests",
+        "name" : "PhotoAssetTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Repositories",
+        "identifier" : "RepositoriesTests",
+        "name" : "RepositoriesTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Stores",
+        "identifier" : "StoresTests",
+        "name" : "StoresTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Features",
+        "identifier" : "MemoriesTests",
+        "name" : "MemoriesTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Features",
+        "identifier" : "SettingsTests",
+        "name" : "SettingsTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Core",
+        "identifier" : "CoreTests",
+        "name" : "CoreTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Utilities",
+        "identifier" : "UtilitiesTests",
+        "name" : "UtilitiesTests"
       }
     },
     {

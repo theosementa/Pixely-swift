@@ -192,4 +192,5 @@ extension AssetManager: @MainActor PHPhotoLibraryChangeObserver {
             self.refreshPhotoAssets(changes.fetchResultAfterChanges)
         }
     }
+    
 }
