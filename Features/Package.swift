@@ -10,7 +10,8 @@ let package = Package(
         .library(name: "Albums", targets: ["Albums"]),
         .library(name: "Gallery", targets: ["Gallery"]),
         .library(name: "Memories", targets: ["Memories"]),
-        .library(name: "Settings", targets: ["Settings"])
+        .library(name: "Settings", targets: ["Settings"]),
+        .library(name: "PhotoAsset", targets: ["PhotoAsset"])
     ],
     dependencies: [
         .package(path: "../Models"),
@@ -57,5 +58,15 @@ let package = Package(
             ]
         ),
         .testTarget(name: "SettingsTests", dependencies: ["Settings"]),
+        
+        .target(
+            name: "PhotoAsset",
+            dependencies: [
+                "Models",
+                "Stores",
+                "DesignSystem"
+            ]
+        ),
+        .testTarget(name: "PhotoAssetTests", dependencies: ["PhotoAsset"])
     ]
 )

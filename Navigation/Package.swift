@@ -10,7 +10,7 @@ let package = Package(
         .library(
             name: "Navigation",
             targets: ["Navigation"]
-        ),
+        )
     ],
     dependencies: [
         .package(path: "../Models"),
@@ -23,7 +23,7 @@ let package = Package(
                 "Models",
                 .product(name: "NavigationKit", package: "NavigationKit")
             ]
-        ),
+        )
 
     ]
 )

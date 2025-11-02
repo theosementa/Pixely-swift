@@ -11,7 +11,7 @@ let package = Package(
     ],
     dependencies: [
         .package(path: "../Repositories"),
-        .package(path: "../Models"),
+        .package(path: "../Models")
     ],
     targets: [
         .target(
