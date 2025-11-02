@@ -56,11 +56,6 @@
 			path = PixelyTests;
 			sourceTree = "<group>";
 		};
-		D91EE6AF2EB6905500EE4CB0 /* PixelyUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = PixelyUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +88,6 @@
 				D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */,
 				D91EE6902EB6905400EE4CB0 /* Pixely */,
 				D91EE6A52EB6905500EE4CB0 /* PixelyTests */,
-				D91EE6AF2EB6905500EE4CB0 /* PixelyUITests */,
 				D91EE75A2EB73B8800EE4CB0 /* Frameworks */,
 				D91EE68F2EB6905400EE4CB0 /* Products */,
 			);
