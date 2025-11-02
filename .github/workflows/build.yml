@@ -42,7 +42,6 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
             -enableCodeCoverage YES \
             -derivedDataPath DerivedData \
-            | tee xcodebuild.log
         timeout-minutes: 8
         continue-on-error: true
 
