@@ -18,6 +18,13 @@
         "identifier" : "D91EE6A12EB6905500EE4CB0",
         "name" : "PixelyTests"
       }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Persistence",
+        "identifier" : "PersistenceTests",
+        "name" : "PersistenceTests"
+      }
     }
   ],
   "version" : 1

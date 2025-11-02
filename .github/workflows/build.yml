@@ -43,6 +43,7 @@ jobs:
             -enableCodeCoverage YES \
             -derivedDataPath DerivedData \
             | tee xcodebuild.log
+        timeout-minutes: 8
         continue-on-error: true
 
       # Conversion de la couverture au format SonarQube générique
