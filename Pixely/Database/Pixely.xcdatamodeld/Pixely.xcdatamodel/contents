@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="24299" systemVersion="25A362" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
-    <entity name="AlbumEntity" representedClassName="AlbumEntity" syncable="YES" codeGenerationType="class">
+    <entity name="AlbumEntity" representedClassName="AlbumEntity" syncable="YES">
         <attribute name="colorHex" optional="YES" attributeType="String"/>
         <attribute name="emoji" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="assets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AssetDetailledEntity" inverseName="album" inverseEntity="AssetDetailledEntity"/>
     </entity>
-    <entity name="AssetDetailledEntity" representedClassName="AssetDetailledEntity" syncable="YES" codeGenerationType="class">
+    <entity name="AssetDetailledEntity" representedClassName="AssetDetailledEntity" syncable="YES">
         <attribute name="assetId" optional="YES" attributeType="String"/>
         <attribute name="dateTime" optional="YES" attributeType="String"/>
         <attribute name="fileSize" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -26,7 +26,7 @@
         <relationship name="album" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="AlbumEntity" inverseName="assets" inverseEntity="AlbumEntity"/>
         <relationship name="tags" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="TagEntity" inverseName="assets" inverseEntity="TagEntity"/>
     </entity>
-    <entity name="TagEntity" representedClassName="TagEntity" syncable="YES" codeGenerationType="class">
+    <entity name="TagEntity" representedClassName="TagEntity" syncable="YES">
         <attribute name="colorHex" optional="YES" attributeType="String"/>
         <attribute name="emoji" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>

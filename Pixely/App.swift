@@ -6,16 +6,16 @@
 //
 
 import SwiftUI
-import CoreData
+import Persistence
 
 @main
 struct PixelyApp: App {
-    let persistenceController = PersistenceController.shared
+    let coreDataStack = CoreDataStack.shared
 
     var body: some Scene {
         WindowGroup {
             EmptyView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environment(\.managedObjectContext, coreDataStack.viewContext)
         }
     }
 }
