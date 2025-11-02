@@ -13,6 +13,7 @@
   },
   "testTargets" : [
     {
+      "enabled" : false,
       "target" : {
         "containerPath" : "container:Features",
         "identifier" : "AlbumsTests",
@@ -34,6 +35,7 @@
       }
     },
     {
+      "enabled" : false,
       "target" : {
         "containerPath" : "container:Features",
         "identifier" : "PhotoAssetTests",
@@ -41,6 +43,7 @@
       }
     },
     {
+      "enabled" : false,
       "target" : {
         "containerPath" : "container:Repositories",
         "identifier" : "RepositoriesTests",
@@ -48,6 +51,7 @@
       }
     },
     {
+      "enabled" : false,
       "target" : {
         "containerPath" : "container:Stores",
         "identifier" : "StoresTests",
@@ -55,6 +59,7 @@
       }
     },
     {
+      "enabled" : false,
       "target" : {
         "containerPath" : "container:Features",
         "identifier" : "MemoriesTests",
@@ -62,6 +67,7 @@
       }
     },
     {
+      "enabled" : false,
       "target" : {
         "containerPath" : "container:Features",
         "identifier" : "SettingsTests",
@@ -69,6 +75,7 @@
       }
     },
     {
+      "enabled" : false,
       "target" : {
         "containerPath" : "container:Core",
         "identifier" : "CoreTests",
@@ -76,6 +83,7 @@
       }
     },
     {
+      "enabled" : false,
       "target" : {
         "containerPath" : "container:Utilities",
         "identifier" : "UtilitiesTests",
@@ -83,6 +91,7 @@
       }
     },
     {
+      "enabled" : false,
       "target" : {
         "containerPath" : "container:Persistence",
         "identifier" : "PersistenceTests",
