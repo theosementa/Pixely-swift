@@ -5,9 +5,9 @@
         <attribute name="emoji" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="assets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AssetDetailledEntity" inverseName="album" inverseEntity="AssetDetailledEntity"/>
+        <relationship name="assets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="AssetDetailedEntity" inverseName="album" inverseEntity="AssetDetailedEntity"/>
     </entity>
-    <entity name="AssetDetailledEntity" representedClassName="AssetDetailledEntity" syncable="YES">
+    <entity name="AssetDetailedEntity" representedClassName="AssetDetailedEntity" syncable="YES">
         <attribute name="assetId" optional="YES" attributeType="String"/>
         <attribute name="dateTime" optional="YES" attributeType="String"/>
         <attribute name="fileSize" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
@@ -31,6 +31,6 @@
         <attribute name="emoji" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="assets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AssetDetailledEntity" inverseName="tags" inverseEntity="AssetDetailledEntity"/>
+        <relationship name="assets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AssetDetailedEntity" inverseName="tags" inverseEntity="AssetDetailedEntity"/>
     </entity>
 </model>

@@ -20,7 +20,7 @@ public class AlbumEntity: NSManagedObject, Identifiable {
     @NSManaged public var name: String
     @NSManaged public var colorHex: String
     @NSManaged public var emoji: String?
-    @NSManaged public var assets: Set<AssetDetailledEntity>?
+    @NSManaged public var assets: Set<AssetDetailedEntity>?
 
 }
 
@@ -28,10 +28,10 @@ public class AlbumEntity: NSManagedObject, Identifiable {
 extension AlbumEntity {
 
     @objc(addAssetsObject:)
-    @NSManaged public func addToAssets(_ value: AssetDetailledEntity)
+    @NSManaged public func addToAssets(_ value: AssetDetailedEntity)
 
     @objc(removeAssetsObject:)
-    @NSManaged public func removeFromAssets(_ value: AssetDetailledEntity)
+    @NSManaged public func removeFromAssets(_ value: AssetDetailedEntity)
 
     @objc(addAssets:)
     @NSManaged public func addToAssets(_ values: NSSet)

@@ -16,7 +16,8 @@ let package = Package(
     dependencies: [
         .package(path: "../Models"),
         .package(path: "../Stores"),
-        .package(path: "../DesignSystem")        
+        .package(path: "../DesignSystem"),
+        .package(path: "../Utilities")
     ],
     targets: [
         .target(
@@ -34,7 +35,8 @@ let package = Package(
             dependencies: [
                 "Models",
                 "Stores",
-                "DesignSystem"
+                "DesignSystem",
+                "PhotoAsset"
             ]
         ),
         .testTarget(name: "GalleryTests", dependencies: ["Gallery"]),
@@ -64,7 +66,8 @@ let package = Package(
             dependencies: [
                 "Models",
                 "Stores",
-                "DesignSystem"
+                "DesignSystem",
+                "Utilities"
             ]
         ),
         .testTarget(name: "PhotoAssetTests", dependencies: ["PhotoAsset"])

@@ -18,6 +18,7 @@
 		D91EE92F2EB7AA9A00EE4CB0 /* Navigation in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE92E2EB7AA9A00EE4CB0 /* Navigation */; };
 		D91EE9312EB7AB6000EE4CB0 /* Memories in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE9302EB7AB6000EE4CB0 /* Memories */; };
 		D91EE9332EB7AB6500EE4CB0 /* Settings in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE9322EB7AB6500EE4CB0 /* Settings */; };
+		D91EE93D2EB7C9D100EE4CB0 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE93C2EB7C9D100EE4CB0 /* Utilities */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		D91EE8992EB7946C00EE4CB0 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystem; sourceTree = "<group>"; };
 		D91EE92D2EB796BA00EE4CB0 /* Navigation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Navigation; sourceTree = "<group>"; };
 		D91EE9362EB7ABB700EE4CB0 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
+		D91EE93B2EB7C98E00EE4CB0 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -81,6 +83,7 @@
 				D91EE92F2EB7AA9A00EE4CB0 /* Navigation in Frameworks */,
 				D91EE89B2EB7949800EE4CB0 /* DesignSystem in Frameworks */,
 				D91EE7FC2EB73D4C00EE4CB0 /* Models in Frameworks */,
+				D91EE93D2EB7C9D100EE4CB0 /* Utilities in Frameworks */,
 				D91EE8982EB7945100EE4CB0 /* Gallery in Frameworks */,
 				D91EE9312EB7AB6000EE4CB0 /* Memories in Frameworks */,
 				D91EE8932EB779AD00EE4CB0 /* Stores in Frameworks */,
@@ -109,6 +112,7 @@
 				D91EE7592EB73A3100EE4CB0 /* Persistence */,
 				D91EE88E2EB763C700EE4CB0 /* Repositories */,
 				D91EE8912EB7772900EE4CB0 /* Stores */,
+				D91EE93B2EB7C98E00EE4CB0 /* Utilities */,
 				D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */,
 				D91EE6902EB6905400EE4CB0 /* Pixely */,
 				D91EE6A52EB6905500EE4CB0 /* PixelyTests */,
@@ -164,6 +168,7 @@
 				D91EE92E2EB7AA9A00EE4CB0 /* Navigation */,
 				D91EE9302EB7AB6000EE4CB0 /* Memories */,
 				D91EE9322EB7AB6500EE4CB0 /* Settings */,
+				D91EE93C2EB7C9D100EE4CB0 /* Utilities */,
 			);
 			productName = Pixely;
 			productReference = D91EE68E2EB6905400EE4CB0 /* Pixely.app */;
@@ -313,6 +318,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixely/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Pixely;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Need acces to display your photos.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -361,6 +367,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixely/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Pixely;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Need acces to display your photos.";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -635,6 +642,10 @@
 		D91EE9322EB7AB6500EE4CB0 /* Settings */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Settings;
+		};
+		D91EE93C2EB7C9D100EE4CB0 /* Utilities */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Utilities;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

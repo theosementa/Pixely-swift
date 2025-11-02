@@ -9,11 +9,11 @@
 public import Foundation
 public import CoreData
 
-@objc(AssetDetailledEntity)
-public class AssetDetailledEntity: NSManagedObject, Identifiable {
+@objc(AssetDetailedEntity)
+public class AssetDetailedEntity: NSManagedObject, Identifiable {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<AssetDetailledEntity> {
-        return NSFetchRequest<AssetDetailledEntity>(entityName: "AssetDetailledEntity")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<AssetDetailedEntity> {
+        return NSFetchRequest<AssetDetailedEntity>(entityName: "AssetDetailedEntity")
     }
 
     @NSManaged public var id: UUID
@@ -37,7 +37,7 @@ public class AssetDetailledEntity: NSManagedObject, Identifiable {
 }
 
 // MARK: Generated accessors for tags
-extension AssetDetailledEntity {
+extension AssetDetailedEntity {
 
     @objc(addTagsObject:)
     @NSManaged public func addToTags(_ value: TagEntity)

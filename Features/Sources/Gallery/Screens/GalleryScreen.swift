@@ -6,12 +6,24 @@
 //
 
 import SwiftUI
+import PhotoAsset
 
-struct GalleryScreen: View {
+public struct GalleryScreen: View {
+    
+    @Environment(AssetManager.self) private var assetManager
+    
+    public init() { }
     
     // MARK: - View
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    public var body: some View {
+        PhotoCollectionView(
+            assets: assetManager.photoAssetCollection.phAssets,
+            itemSpacing: 2,
+            onAssetSelected: { _ in }
+        )
+        .ignoresSafeArea(edges: .bottom)
+        .scrollIndicators(.hidden)
+        .scrollDismissesKeyboard(.interactively)
     }
 }
 

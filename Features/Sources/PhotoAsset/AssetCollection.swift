@@ -7,22 +7,22 @@
 
 import Photos
 
-class AssetCollection: RandomAccessCollection {
+public class AssetCollection: RandomAccessCollection {
     private(set) var fetchResult: PHFetchResult<PHAsset>
     private var iteratorIndex: Int = 0
     
-    var startIndex: Int { 0 }
-    var endIndex: Int { fetchResult.count }
+    public var startIndex: Int { 0 }
+    public var endIndex: Int { fetchResult.count }
     
-    init(_ fetchResult: PHFetchResult<PHAsset>) {
+    public init(_ fetchResult: PHFetchResult<PHAsset>) {
         self.fetchResult = fetchResult
     }
 
-    subscript(position: Int) -> PHAsset {
+    public subscript(position: Int) -> PHAsset {
         return fetchResult.object(at: position)
     }
     
-    var phAssets: [PHAsset] {
+    public var phAssets: [PHAsset] {
         var assets = [PHAsset]()
         fetchResult.enumerateObjects { (object, _, _) in
             assets.append(object)
@@ -41,7 +41,7 @@ class AssetCollection: RandomAccessCollection {
 
 extension AssetCollection: Sequence, IteratorProtocol {
 
-    func next() -> PHAsset? {
+    public func next() -> PHAsset? {
         if iteratorIndex >= count {
             return nil
         }

@@ -8,7 +8,6 @@
 import Foundation
 import NavigationKit
 
-public enum AppDestination: AppDestinationProtocol {
-    case album(AlbumDestination)
-    case gallery(GalleryDestination)
+public enum GalleryDestination: DestinationItem {
+    case home
 }

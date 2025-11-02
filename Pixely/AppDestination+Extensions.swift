@@ -10,6 +10,7 @@ import Navigation
 import SwiftUI
 
 import Albums
+import Gallery
 
 extension AppDestination {
     
@@ -18,6 +19,8 @@ extension AppDestination {
         switch destination {
         case .album(let albumDestination):
             albumView(for: albumDestination)
+        case .gallery(let galeryDestination):
+            galleryView(for: galeryDestination)
         }
     }
     
@@ -32,6 +35,14 @@ extension AppDestination {
             AlbumsListScreen()
         default:
             EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    private static func galleryView(for destination: GalleryDestination) -> some View {
+        switch destination {
+        case .home:
+            GalleryScreen()
         }
     }
     

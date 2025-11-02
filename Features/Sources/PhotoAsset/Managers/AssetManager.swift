@@ -8,19 +8,19 @@
 import Photos
 import Models
 
-@Observable
-final class AssetManager: NSObject {
+@Observable @MainActor
+public final class AssetManager: NSObject {
     
-    var photoAssetCollection: AssetCollection = AssetCollection(PHFetchResult<PHAsset>())
+    public var photoAssetCollection: AssetCollection = AssetCollection(PHFetchResult<PHAsset>())
     let cacheManager = CachedImageManager()
     
     // MARK: Init
-    override init() {
+    public override init() {
         super.init()
         Task {
             guard await checkAuthorization() else { return }
             PHPhotoLibrary.shared().register(self)
-            await refreshPhotoAssets()
+            refreshPhotoAssets()
         }
     }
 
@@ -186,7 +186,7 @@ extension AssetManager {
 extension AssetManager: @MainActor PHPhotoLibraryChangeObserver {
     
     @MainActor // TODO: Voir si pas de lag
-    func photoLibraryDidChange(_ changeInstance: PHChange) {
+    public func photoLibraryDidChange(_ changeInstance: PHChange) {
         Task { @MainActor in
             guard let changes = changeInstance.changeDetails(for: self.photoAssetCollection.fetchResult) else { return }
             self.refreshPhotoAssets(changes.fetchResultAfterChanges)

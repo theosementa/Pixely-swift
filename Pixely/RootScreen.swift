@@ -9,11 +9,15 @@ import SwiftUI
 import Navigation
 
 import Albums
+import Gallery
+import PhotoAsset
 
 struct RootScreen: View {
     
     @State private var appRouterManager: AppRouterManager = .shared
     @StateObject private var galleryRouter: Router<AppDestination> = .init()
+    
+    @State private var assetManager: AssetManager = .init()
     
     // MARK: - View
     var body: some View {
@@ -21,9 +25,10 @@ struct RootScreen: View {
             NavigationStackView(
                 router: galleryRouter,
                 destinationContent: { AppDestination.view(for: $0) },
-                initialContent: { AlbumsListScreen() }
+                initialContent: { GalleryScreen() }
             )
         }
+        .environment(assetManager)
     }
 }
 
