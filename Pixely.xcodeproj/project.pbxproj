@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D91EE7572EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */; };
+		D91EE75C2EB73B8800EE4CB0 /* Persistence in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE75B2EB73B8800EE4CB0 /* Persistence */; };
+		D91EE7FC2EB73D4C00EE4CB0 /* Models in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE7FB2EB73D4C00EE4CB0 /* Models */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,6 +26,8 @@
 		D91EE68E2EB6905400EE4CB0 /* Pixely.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pixely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91EE6A22EB6905500EE4CB0 /* PixelyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixelyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PixelyTestPlan.xctestplan; sourceTree = "<group>"; };
+		D91EE7592EB73A3100EE4CB0 /* Persistence */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Persistence; sourceTree = "<group>"; };
+		D91EE7EE2EB73C0300EE4CB0 /* Models */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Models; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -62,6 +66,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D91EE7FC2EB73D4C00EE4CB0 /* Models in Frameworks */,
+				D91EE75C2EB73B8800EE4CB0 /* Persistence in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,10 +84,13 @@
 		D91EE6852EB6905400EE4CB0 = {
 			isa = PBXGroup;
 			children = (
+				D91EE7EE2EB73C0300EE4CB0 /* Models */,
+				D91EE7592EB73A3100EE4CB0 /* Persistence */,
 				D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */,
 				D91EE6902EB6905400EE4CB0 /* Pixely */,
 				D91EE6A52EB6905500EE4CB0 /* PixelyTests */,
 				D91EE6AF2EB6905500EE4CB0 /* PixelyUITests */,
+				D91EE75A2EB73B8800EE4CB0 /* Frameworks */,
 				D91EE68F2EB6905400EE4CB0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -93,6 +102,13 @@
 				D91EE6A22EB6905500EE4CB0 /* PixelyTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D91EE75A2EB73B8800EE4CB0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -116,6 +132,8 @@
 			);
 			name = Pixely;
 			packageProductDependencies = (
+				D91EE75B2EB73B8800EE4CB0 /* Persistence */,
+				D91EE7FB2EB73D4C00EE4CB0 /* Models */,
 			);
 			productName = Pixely;
 			productReference = D91EE68E2EB6905400EE4CB0 /* Pixely.app */;
@@ -546,6 +564,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D91EE75B2EB73B8800EE4CB0 /* Persistence */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Persistence;
+		};
+		D91EE7FB2EB73D4C00EE4CB0 /* Models */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Models;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D91EE6862EB6905400EE4CB0 /* Project object */;
 }

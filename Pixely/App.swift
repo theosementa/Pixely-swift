@@ -14,7 +14,7 @@ struct PixelyApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            EmptyView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
