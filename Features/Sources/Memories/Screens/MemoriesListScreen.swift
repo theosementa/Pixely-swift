@@ -7,17 +7,15 @@
 
 import SwiftUI
 
-public struct AlbumsListScreen: View {
-    
-    public init() { }
+struct MemoriesListScreen: View {
     
     // MARK: - View
-    public var body: some View {
+    var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
 // MARK: - Preview
 #Preview {
-    AlbumsListScreen()
+    MemoriesListScreen()
 }

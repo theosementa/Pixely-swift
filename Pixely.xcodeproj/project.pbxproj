@@ -15,6 +15,9 @@
 		D91EE8962EB7945100EE4CB0 /* Albums in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE8952EB7945100EE4CB0 /* Albums */; };
 		D91EE8982EB7945100EE4CB0 /* Gallery in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE8972EB7945100EE4CB0 /* Gallery */; };
 		D91EE89B2EB7949800EE4CB0 /* DesignSystem in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE89A2EB7949800EE4CB0 /* DesignSystem */; };
+		D91EE92F2EB7AA9A00EE4CB0 /* Navigation in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE92E2EB7AA9A00EE4CB0 /* Navigation */; };
+		D91EE9312EB7AB6000EE4CB0 /* Memories in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE9302EB7AB6000EE4CB0 /* Memories */; };
+		D91EE9332EB7AB6500EE4CB0 /* Settings in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE9322EB7AB6500EE4CB0 /* Settings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +40,8 @@
 		D91EE8912EB7772900EE4CB0 /* Stores */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Stores; sourceTree = "<group>"; };
 		D91EE8942EB792B300EE4CB0 /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Features; sourceTree = "<group>"; };
 		D91EE8992EB7946C00EE4CB0 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystem; sourceTree = "<group>"; };
+		D91EE92D2EB796BA00EE4CB0 /* Navigation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Navigation; sourceTree = "<group>"; };
+		D91EE9362EB7ABB700EE4CB0 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -71,10 +76,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D91EE8962EB7945100EE4CB0 /* Albums in Frameworks */,
+				D91EE9332EB7AB6500EE4CB0 /* Settings in Frameworks */,
 				D91EE8902EB7656400EE4CB0 /* Repositories in Frameworks */,
+				D91EE92F2EB7AA9A00EE4CB0 /* Navigation in Frameworks */,
 				D91EE89B2EB7949800EE4CB0 /* DesignSystem in Frameworks */,
 				D91EE7FC2EB73D4C00EE4CB0 /* Models in Frameworks */,
 				D91EE8982EB7945100EE4CB0 /* Gallery in Frameworks */,
+				D91EE9312EB7AB6000EE4CB0 /* Memories in Frameworks */,
 				D91EE8932EB779AD00EE4CB0 /* Stores in Frameworks */,
 				D91EE75C2EB73B8800EE4CB0 /* Persistence in Frameworks */,
 			);
@@ -93,9 +101,11 @@
 		D91EE6852EB6905400EE4CB0 = {
 			isa = PBXGroup;
 			children = (
+				D91EE9362EB7ABB700EE4CB0 /* Core */,
 				D91EE8992EB7946C00EE4CB0 /* DesignSystem */,
 				D91EE8942EB792B300EE4CB0 /* Features */,
 				D91EE7EE2EB73C0300EE4CB0 /* Models */,
+				D91EE92D2EB796BA00EE4CB0 /* Navigation */,
 				D91EE7592EB73A3100EE4CB0 /* Persistence */,
 				D91EE88E2EB763C700EE4CB0 /* Repositories */,
 				D91EE8912EB7772900EE4CB0 /* Stores */,
@@ -151,6 +161,9 @@
 				D91EE8952EB7945100EE4CB0 /* Albums */,
 				D91EE8972EB7945100EE4CB0 /* Gallery */,
 				D91EE89A2EB7949800EE4CB0 /* DesignSystem */,
+				D91EE92E2EB7AA9A00EE4CB0 /* Navigation */,
+				D91EE9302EB7AB6000EE4CB0 /* Memories */,
+				D91EE9322EB7AB6500EE4CB0 /* Settings */,
 			);
 			productName = Pixely;
 			productReference = D91EE68E2EB6905400EE4CB0 /* Pixely.app */;
@@ -610,6 +623,18 @@
 		D91EE89A2EB7949800EE4CB0 /* DesignSystem */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignSystem;
+		};
+		D91EE92E2EB7AA9A00EE4CB0 /* Navigation */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Navigation;
+		};
+		D91EE9302EB7AB6000EE4CB0 /* Memories */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Memories;
+		};
+		D91EE9322EB7AB6500EE4CB0 /* Settings */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Settings;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

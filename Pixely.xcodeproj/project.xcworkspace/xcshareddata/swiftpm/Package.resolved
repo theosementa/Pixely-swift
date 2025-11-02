@@ -1,0 +1,15 @@
+{
+  "originHash" : "b37f085b81240de9473aa392b7ea81b194f6bc9d1eb87569f4325ddd30566527",
+  "pins" : [
+    {
+      "identity" : "navigationkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/theosementa/NavigationKit",
+      "state" : {
+        "branch" : "2.0.6",
+        "revision" : "c29af76db21396960ab5a79b0f390f1b77a94e36"
+      }
+    }
+  ],
+  "version" : 3
+}
