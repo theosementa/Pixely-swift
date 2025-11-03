@@ -187,10 +187,8 @@ extension AssetManager: @MainActor PHPhotoLibraryChangeObserver {
     
     @MainActor // TODO: Voir si pas de lag
     public func photoLibraryDidChange(_ changeInstance: PHChange) {
-        Task { @MainActor in
-            guard let changes = changeInstance.changeDetails(for: self.photoAssetCollection.fetchResult) else { return }
-            self.refreshPhotoAssets(changes.fetchResultAfterChanges)
-        }
+        guard let changes = changeInstance.changeDetails(for: self.photoAssetCollection.fetchResult) else { return }
+        self.refreshPhotoAssets(changes.fetchResultAfterChanges)
     }
     
 }
