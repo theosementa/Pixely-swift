@@ -183,7 +183,7 @@ extension AssetManager {
 }
 
 // MARK: - Observer
-extension AssetManager: @MainActor PHPhotoLibraryChangeObserver {
+extension AssetManager: @preconcurrency PHPhotoLibraryChangeObserver {
     
     @MainActor // TODO: Voir si pas de lag
     public func photoLibraryDidChange(_ changeInstance: PHChange) {
