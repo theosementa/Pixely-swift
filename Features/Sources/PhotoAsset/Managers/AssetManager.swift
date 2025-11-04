@@ -5,7 +5,7 @@
 //  Created by Theo Sementa on 02/11/2025.
 //
 
-import Photos
+@preconcurrency import Photos
 import Models
 
 @Observable @MainActor
@@ -63,7 +63,7 @@ extension AssetManager {
         }
         
         do {
-            try await photoLibrary.performChanges { @Sendable in
+            try await photoLibrary.performChanges {
                 let request = PHAssetChangeRequest(for: asset)
                 request.isFavorite = isFavorite
             }
@@ -75,7 +75,7 @@ extension AssetManager {
     
     func createAsset(data: Data, type: PHAssetResourceType) async throws {
         do {
-            try await photoLibrary.performChanges { @Sendable in
+            try await photoLibrary.performChanges {
                 let request = PHAssetCreationRequest.forAsset()
                 request.addResource(with: type, data: data, options: nil)
             }
@@ -89,7 +89,7 @@ extension AssetManager {
         guard let asset, let urlAsset = asset as? AVURLAsset else { throw AssetError.failed }
         
         do {
-            try await photoLibrary.performChanges { @Sendable in
+            try await photoLibrary.performChanges {
                 let request = PHAssetCreationRequest.forAsset()
                 request.addResource(with: .video, fileURL: urlAsset.url, options: nil)
             }
@@ -106,7 +106,7 @@ extension AssetManager {
         }
         
         do {
-            try await photoLibrary.performChanges { @Sendable in
+            try await photoLibrary.performChanges {
                 PHAssetChangeRequest.deleteAssets([asset] as NSArray)
             }
             print("PhotoAsset asset deleted")
@@ -171,7 +171,7 @@ extension AssetManager {
             let data = adjustment.data
             try data.write(to: url)
 
-            try await photoLibrary.performChanges { @Sendable in
+            try await photoLibrary.performChanges {
                 let request = PHAssetChangeRequest(for: asset)
                 request.contentEditingOutput = editingOutput
             }

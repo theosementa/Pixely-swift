@@ -49,7 +49,6 @@ jobs:
             -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
             -enableCodeCoverage YES \
             -derivedDataPath DerivedData \
-            SWIFT_STRICT_CONCURRENCY=minimal \
         timeout-minutes: 8
         continue-on-error: true
 

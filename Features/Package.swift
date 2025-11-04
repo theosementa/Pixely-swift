@@ -74,6 +74,10 @@ let package = Package(
                 "Stores",
                 "DesignSystem",
                 "Utilities"
+            ],
+            swiftSettings: [
+                .swiftLanguageMode(.v6),
+                .enableUpcomingFeature("StrictConcurrency")
             ]
         ),
         .testTarget(name: "PhotoAssetTests", dependencies: ["PhotoAsset"])
