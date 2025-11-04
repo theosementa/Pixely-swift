@@ -65,11 +65,11 @@ jobs:
           # Convertir au format SonarQube
           ./xccov-to-sonarqube.sh "$XCRESULT_PATH" > sonarqube-coverage.xml
 
-      # Mobsfscan en SARIF
+      # Mobsfscan
       - name: mobsfscan
-        run: |
-          pip install mobsfscan
-          mobsfscan . --sarif > mobsfscan-report.sarif
+        uses: MobSF/mobsfscan@main
+        with:
+            args: '. --sarif -o mobsfscan-report.sarif'
 
       # SonarQube
       - uses: sonarsource/sonarqube-scan-action@master
