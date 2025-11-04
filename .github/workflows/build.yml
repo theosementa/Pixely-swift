@@ -38,6 +38,12 @@ jobs:
           brew install swiftlint
           swiftlint lint --quiet --reporter json > sonarqube-swiftlint.json
         continue-on-error: true
+        
+      # Mobsfscan
+      - name: mobsfscan
+        uses: MobSF/mobsfscan@main
+        with:
+            args: '. --sarif -o mobsfscan-report.sarif'
           
       # Exécution des tests avec couverture
       - name: Run tests with coverage
@@ -64,12 +70,6 @@ jobs:
           
           # Convertir au format SonarQube
           ./xccov-to-sonarqube.sh "$XCRESULT_PATH" > sonarqube-coverage.xml
-
-      # Mobsfscan
-      - name: mobsfscan
-        uses: MobSF/mobsfscan@main
-        with:
-            args: '. --sarif -o mobsfscan-report.sarif'
 
       # SonarQube
       - uses: sonarsource/sonarqube-scan-action@master
