@@ -6,13 +6,13 @@
 //
 
 import UIKit
-import Photos
+@preconcurrency import Photos
 import SwiftUI
 import Models
 
 final class CachedImageManager {
     
-    @MainActor let imageManager = PHCachingImageManager()
+    let imageManager = PHCachingImageManager()
     private var imageContentMode = PHImageContentMode.aspectFit
     
     private var cachedAssetIdentifiers: [String: Bool] = [:]
