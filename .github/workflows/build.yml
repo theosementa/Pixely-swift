@@ -31,13 +31,18 @@ jobs:
 
       # Résolution des dépendances
       - name: Resolve Swift Package dependencies
-        run: xcodebuild -resolvePackageDependencies
-        timeout-minutes: 8
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+            xcodebuild \
+              -project Pixely.xcodeproj \
+              -scheme Pixely \
+              -resolvePackageDependencies \
           
-      - name: Build Pixely
-        run: swift build
+      - name: Display build settings
+        run: |
+            xcodebuild \
+              -project Pixely.xcodeproj \
+              -scheme Pixely \
+              -showBuildSettings \
           
       # SwiftLint sur tout le projet
       - name: Install and Run SwiftLint
@@ -55,13 +60,13 @@ jobs:
       # Exécution des tests avec couverture
       - name: Run tests with coverage
         run: |
-          xcodebuild test \
+          xcodebuild clean test \
             -project Pixely.xcodeproj \
             -scheme Pixely \
-            -testPlan PixelyTestPlan \
-            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
-            -enableCodeCoverage YES \
             -derivedDataPath DerivedData \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
+            -testPlan PixelyTestPlan \
+            -enableCodeCoverage YES \
         timeout-minutes: 8
         continue-on-error: true
 
