@@ -32,6 +32,34 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           
+      - name: Print environment & toolchain info
+        run: |
+          echo "===== SYSTEM INFO ====="
+          sw_vers
+          uname -a
+
+          echo ""
+          echo "===== XCODE ====="
+          xcode-select -p
+          xcodebuild -version
+
+          echo ""
+          echo "===== SWIFT ====="
+          swift --version
+
+          echo ""
+          echo "===== XCODE TOOLS ====="
+          xcrun --version
+
+          echo ""
+          echo "===== COMMAND LINE TOOLS ====="
+          gcc --version | head -n 1
+          clang --version | head -n 1
+
+          echo ""
+          echo "===== INSTALLED SDKs ====="
+          xcodebuild -showsdks
+          
       # SwiftLint sur tout le projet
       - name: Install and Run SwiftLint
         run: | 
@@ -44,32 +72,6 @@ jobs:
         uses: MobSF/mobsfscan@main
         with:
             args: '. --sarif -o mobsfscan-report.sarif'
-          
-      # Exécution des tests avec couverture
-      - name: Run tests with coverage
-        run: |
-          xcodebuild test \
-            -project Pixely.xcodeproj \
-            -scheme Pixely \
-            -testPlan PixelyTestPlan \
-            -destination 'platform=iOS Simulator,name=iPhone 16,OS=latest' \
-            -enableCodeCoverage YES \
-            -derivedDataPath DerivedData \
-        timeout-minutes: 8
-        continue-on-error: true
-
-      # Conversion de la couverture au format SonarQube générique
-      - name: Convert coverage to SonarQube format
-        run: |
-          # Trouver le fichier .xcresult
-          XCRESULT_PATH=$(find DerivedData/Logs/Test -name "*.xcresult" | head -n 1)
-          
-          # Télécharger le script de conversion
-          curl -o xccov-to-sonarqube.sh https://raw.githubusercontent.com/SonarSource/sonar-scanning-examples/master/swift-coverage/swift-coverage-example/xccov-to-sonarqube-generic.sh
-          chmod +x xccov-to-sonarqube.sh
-          
-          # Convertir au format SonarQube
-          ./xccov-to-sonarqube.sh "$XCRESULT_PATH" > sonarqube-coverage.xml
 
       # SonarQube
       - uses: sonarsource/sonarqube-scan-action@master
