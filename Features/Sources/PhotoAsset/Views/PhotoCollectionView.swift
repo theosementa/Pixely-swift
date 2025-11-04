@@ -87,6 +87,7 @@ public struct PhotoCollectionView: UIViewRepresentable {
         }
     }
     
+    @MainActor
     public func makeCoordinator() -> Coordinator {
         Coordinator(self, cacheManager: assetManager.cacheManager.imageManager, onAssetSelected: onAssetSelected)
     }

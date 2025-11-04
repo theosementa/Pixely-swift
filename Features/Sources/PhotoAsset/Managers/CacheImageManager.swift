@@ -10,9 +10,9 @@ import Photos
 import SwiftUI
 import Models
 
-actor CachedImageManager {
+final class CachedImageManager {
     
-    let imageManager = PHCachingImageManager()
+    @MainActor let imageManager = PHCachingImageManager()
     private var imageContentMode = PHImageContentMode.aspectFit
     
     private var cachedAssetIdentifiers: [String: Bool] = [:]
