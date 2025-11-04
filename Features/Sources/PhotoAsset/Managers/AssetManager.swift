@@ -11,6 +11,8 @@ import Models
 @Observable @MainActor
 public final class AssetManager: NSObject {
     
+    @MainActor let photoLibrary = PHPhotoLibrary.shared()
+    
     public var photoAssetCollection: AssetCollection = AssetCollection(PHFetchResult<PHAsset>())
     let cacheManager = CachedImageManager()
     
@@ -61,7 +63,7 @@ extension AssetManager {
         }
         
         do {
-            try await PHPhotoLibrary.shared().performChanges {
+            try await photoLibrary.performChanges { @Sendable in
                 let request = PHAssetChangeRequest(for: asset)
                 request.isFavorite = isFavorite
             }
@@ -73,7 +75,7 @@ extension AssetManager {
     
     func createAsset(data: Data, type: PHAssetResourceType) async throws {
         do {
-            try await PHPhotoLibrary.shared().performChanges {
+            try await photoLibrary.performChanges { @Sendable in
                 let request = PHAssetCreationRequest.forAsset()
                 request.addResource(with: type, data: data, options: nil)
             }
@@ -87,7 +89,7 @@ extension AssetManager {
         guard let asset, let urlAsset = asset as? AVURLAsset else { throw AssetError.failed }
         
         do {
-            try await PHPhotoLibrary.shared().performChanges {
+            try await photoLibrary.performChanges { @Sendable in
                 let request = PHAssetCreationRequest.forAsset()
                 request.addResource(with: .video, fileURL: urlAsset.url, options: nil)
             }
@@ -104,7 +106,7 @@ extension AssetManager {
         }
         
         do {
-            try await PHPhotoLibrary.shared().performChanges {
+            try await photoLibrary.performChanges { @Sendable in
                 PHAssetChangeRequest.deleteAssets([asset] as NSArray)
             }
             print("PhotoAsset asset deleted")
@@ -169,7 +171,7 @@ extension AssetManager {
             let data = adjustment.data
             try data.write(to: url)
 
-            try await PHPhotoLibrary.shared().performChanges {
+            try await photoLibrary.performChanges { @Sendable in
                 let request = PHAssetChangeRequest(for: asset)
                 request.contentEditingOutput = editingOutput
             }
