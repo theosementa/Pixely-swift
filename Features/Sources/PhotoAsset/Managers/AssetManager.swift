@@ -84,6 +84,7 @@ extension AssetManager {
         }
     }
     
+    @MainActor
     func createAsset(data: Data, type: PHAssetResourceType) async throws {
         do {
             try await photoLibrary.performChanges {

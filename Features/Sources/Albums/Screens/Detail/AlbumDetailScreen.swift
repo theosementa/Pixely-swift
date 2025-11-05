@@ -15,6 +15,7 @@ public struct AlbumDetailScreen: View {
     
     @Environment(\.dismiss) private var dismiss
         
+    // MARK: Init
     public init(albumId: UUID) {
         self._viewModel = State(wrappedValue: .init(albumId: albumId))
     }
@@ -30,7 +31,6 @@ public struct AlbumDetailScreen: View {
             } label: {
                 Text("Delete")
             }
-
         }
     }
 }

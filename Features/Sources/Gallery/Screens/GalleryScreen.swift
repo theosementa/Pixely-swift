@@ -7,10 +7,12 @@
 
 import SwiftUI
 import PhotoAsset
+import Navigation
 
 public struct GalleryScreen: View {
     
     @Environment(AssetManager.self) private var assetManager
+    @EnvironmentObject private var router: Router<AppDestination>
     
     public init() { }
     
@@ -19,7 +21,9 @@ public struct GalleryScreen: View {
         PhotoCollectionView(
             assets: assetManager.photoAssetCollection.phAssets,
             itemSpacing: 2,
-            onAssetSelected: { _ in }
+            onAssetSelected: {
+                router.push(.gallery(.assetDetail(asset: $0)))
+            }
         )
         .ignoresSafeArea(edges: .bottom)
         .scrollIndicators(.hidden)

@@ -101,6 +101,7 @@ extension CachedImageManager {
         }
     }
     
+    @MainActor
     func requestImageData(for phAsset: PHAsset) async throws -> ImageDataRequestResult {
         var requestId: PHImageRequestID?
         let imageDataWithInfo: ImageDataWithInfoModel = await withCheckedContinuation { continuation in

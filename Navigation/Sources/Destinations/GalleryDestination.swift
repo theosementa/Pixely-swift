@@ -7,7 +7,9 @@
 
 import Foundation
 import NavigationKit
+import Photos
 
 public enum GalleryDestination: DestinationItem {
-    case home
+    case gallery
+    case assetDetail(asset: PHAsset)
 }

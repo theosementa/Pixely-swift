@@ -9,6 +9,7 @@ import Foundation
 import Navigation
 import SwiftUI
 
+import PhotoAsset
 import Albums
 import Gallery
 
@@ -45,8 +46,10 @@ extension AppDestination {
     @ViewBuilder
     private static func galleryView(for destination: GalleryDestination) -> some View {
         switch destination {
-        case .home:
+        case .gallery:
             GalleryScreen()
+        case .assetDetail(let asset):
+            AssetDetailScreen(asset: asset)
         }
     }
     
