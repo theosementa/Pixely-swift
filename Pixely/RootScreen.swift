@@ -8,6 +8,7 @@
 import SwiftUI
 import Navigation
 import Stores
+import Dependencies
 
 import Albums
 import Gallery
@@ -16,6 +17,8 @@ import PhotoAsset
 struct RootScreen: View {
         
     @State private var assetManager: AssetManager = .init()
+    
+    @Dependency(\.albumStore) private var albumStore
         
     // MARK: - View
     var body: some View {
@@ -27,6 +30,9 @@ struct RootScreen: View {
             }
         }
         .environment(assetManager)
+        .onAppear {
+            albumStore.fetchAll()
+        }
     }
 }
 

@@ -8,6 +8,8 @@
 import Foundation
 import Dependencies
 import Models
+import SwiftUI
+import Extensions
 
 extension AddAlbumScreen {
     
@@ -15,8 +17,10 @@ extension AddAlbumScreen {
     final class ViewModel {
         
         var name: String = ""
-        var emoji: String = ""
-        var colorHex: String = ""
+        var emoji: String = "🤖"
+        var color: Color = .red
+        
+        var isEmojiPickerPresented: Bool = false
         
         @ObservationIgnored
         @Dependency(\.albumStore) private var albumStore
@@ -47,7 +51,7 @@ extension AddAlbumScreen.ViewModel {
         let body: AlbumBody = .create(
             name: name,
             emoji: emoji,
-            colorHex: colorHex.isEmpty ? "FF0000" : colorHex
+            colorHex: color.toHex() ?? ""
         )
         
         albumStore.create(body: body)

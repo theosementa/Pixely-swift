@@ -8,6 +8,7 @@
 
 public import Foundation
 public import CoreData
+import SwiftUI
 
 @objc(AlbumEntity)
 public class AlbumEntity: NSManagedObject, Identifiable {
@@ -39,4 +40,17 @@ extension AlbumEntity {
     @objc(removeAssets:)
     @NSManaged public func removeFromAssets(_ values: NSSet)
 
+}
+
+extension AlbumEntity {
+    
+    public func toModel() -> AlbumModel {
+        return .init(
+            id: id,
+            name: name,
+            emoji: emoji ?? "",
+            color: Color(colorHex)
+        )
+    }
+    
 }

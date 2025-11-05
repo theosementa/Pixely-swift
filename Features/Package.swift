@@ -19,8 +19,10 @@ let package = Package(
         .package(path: "../DesignSystem"),
         .package(path: "../Utilities"),
         .package(path: "../Navigation"),
+        .package(path: "../Extensions"),
         
-        .package(url: "https://github.com/pointfreeco/swift-dependencies", exact: "1.10.0")
+        .package(url: "https://github.com/pointfreeco/swift-dependencies", exact: "1.10.0"),
+        .package(url: "https://github.com/izyumkin/MCEmojiPicker", branch: "1.2.5")
     ],
     targets: [
         .target(
@@ -30,7 +32,9 @@ let package = Package(
                 "Stores",
                 "DesignSystem",
                 "Navigation",
-                .product(name: "Dependencies", package: "swift-dependencies")
+                "Extensions",
+                .product(name: "Dependencies", package: "swift-dependencies"),
+                .product(name: "MCEmojiPicker", package: "MCEmojiPicker")
             ]
         ),
         .testTarget(name: "AlbumsTests", dependencies: ["Albums"]),

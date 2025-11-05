@@ -14,6 +14,14 @@ public struct AlbumRepository: RepositoryProtocol {
 }
 
 extension AlbumRepository {
+    
+    public static func fetchAssetCount(for album: AlbumEntity) throws -> Int {
+        let request = AssetDetailedEntity.fetchRequest()
+        request.predicate = NSPredicate(format: "album == %@", album)
+        
+        return try CoreDataStack.shared.viewContext.count(for: request)
+    }
+    
     public static func create(body: AlbumBody) throws -> AlbumEntity {
         let album = AlbumEntity(context: CoreDataStack.shared.viewContext)
         album.id = UUID()

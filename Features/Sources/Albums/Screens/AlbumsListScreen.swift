@@ -31,7 +31,7 @@ public struct AlbumsListScreen: View {
                     route: .push,
                     destination: .album(.detail(albumId: album.id))
                 ) {
-                    Text(album.name)
+                    AlbumRowView(album: album)
                 }
             }
         }

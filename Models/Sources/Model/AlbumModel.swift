@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-public struct AlbumModel: Identifiable {
+public struct AlbumModel: Identifiable, Sendable {
     public var id: UUID
     public var name: String
     public var emoji: String
@@ -25,4 +25,16 @@ public struct AlbumModel: Identifiable {
         self.emoji = emoji
         self.color = color
     }
+}
+
+// MARK: - Mocks
+extension AlbumModel {
+    
+    public static let mock: AlbumModel = .init(
+        id: UUID(),
+        name: "Mock album",
+        emoji: "🐀",
+        color: .red
+    )
+    
 }

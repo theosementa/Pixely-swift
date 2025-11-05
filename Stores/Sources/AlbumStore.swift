@@ -20,7 +20,7 @@ public extension AlbumStore {
     func fetchAll() {
         do {
             let entities = try AlbumRepository.fetchAll()
-            print("🔥 ALBUMS ENTITIES : \(entities)")
+            self.albums = entities.map { $0.toModel() }
         } catch {
             
         }
@@ -29,12 +29,30 @@ public extension AlbumStore {
     func create(body: AlbumBody) {
         do {
             let album = try AlbumRepository.create(body: body)
-            self.albums.append(.init(id: album.id, name: album.name, emoji: album.emoji ?? "", color: .red))
-            print("🔥 ALBUM : \(album)")
+            self.albums.append(album.toModel())
         } catch {
             
         }
     }
+    
+    func delete(id: UUID) {
+        do {
+            try AlbumRepository.delete(id: id)
+            self.albums.removeAll { $0.id == id }
+        } catch {
+            
+        }
+    }
+    
+    func assetCount(for album: AlbumModel) -> Int {
+        do {
+            let entity = try AlbumRepository.fetchOne(id: album.id)
+            return try AlbumRepository.fetchAssetCount(for: entity)
+        } catch {
+            return 0
+        }
+    }
+
 }
 
 // MARK: - Dependencies
