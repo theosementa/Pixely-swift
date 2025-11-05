@@ -9,7 +9,7 @@ import Foundation
 import Dependencies
 import Models
 import SwiftUI
-import Extensions
+import Utilities
 
 extension AddAlbumScreen {
     

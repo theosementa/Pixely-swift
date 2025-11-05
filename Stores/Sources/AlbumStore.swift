@@ -26,6 +26,18 @@ public extension AlbumStore {
         }
     }
     
+    
+    func fetchOneAndUpdate(_ id: UUID) {
+        do {
+            let album = try AlbumRepository.fetchOne(id: id)
+            if let index = self.albums.firstIndex(where: { $0.id == id }) {
+                self.albums[index] = album.toModel()
+            }
+        } catch {
+            print("👋 ERROR \(error)")
+        }
+    }
+    
     func create(body: AlbumBody) {
         do {
             let album = try AlbumRepository.create(body: body)

@@ -19,7 +19,6 @@
 		D91EE9312EB7AB6000EE4CB0 /* Memories in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE9302EB7AB6000EE4CB0 /* Memories */; };
 		D91EE9332EB7AB6500EE4CB0 /* Settings in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE9322EB7AB6500EE4CB0 /* Settings */; };
 		D91EE93D2EB7C9D100EE4CB0 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE93C2EB7C9D100EE4CB0 /* Utilities */; };
-		D9254B532EBBBD2400052A4A /* Extensions in Frameworks */ = {isa = PBXBuildFile; productRef = D9254B522EBBBD2400052A4A /* Extensions */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,7 +44,6 @@
 		D91EE92D2EB796BA00EE4CB0 /* Navigation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Navigation; sourceTree = "<group>"; };
 		D91EE9362EB7ABB700EE4CB0 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
 		D91EE93B2EB7C98E00EE4CB0 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
-		D9254B512EBBBC0E00052A4A /* Extensions */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Extensions; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -85,7 +83,6 @@
 				D91EE92F2EB7AA9A00EE4CB0 /* Navigation in Frameworks */,
 				D91EE89B2EB7949800EE4CB0 /* DesignSystem in Frameworks */,
 				D91EE7FC2EB73D4C00EE4CB0 /* Models in Frameworks */,
-				D9254B532EBBBD2400052A4A /* Extensions in Frameworks */,
 				D91EE93D2EB7C9D100EE4CB0 /* Utilities in Frameworks */,
 				D91EE8982EB7945100EE4CB0 /* Gallery in Frameworks */,
 				D91EE9312EB7AB6000EE4CB0 /* Memories in Frameworks */,
@@ -109,7 +106,6 @@
 			children = (
 				D91EE9362EB7ABB700EE4CB0 /* Core */,
 				D91EE8992EB7946C00EE4CB0 /* DesignSystem */,
-				D9254B512EBBBC0E00052A4A /* Extensions */,
 				D91EE8942EB792B300EE4CB0 /* Features */,
 				D91EE7EE2EB73C0300EE4CB0 /* Models */,
 				D91EE92D2EB796BA00EE4CB0 /* Navigation */,
@@ -173,7 +169,6 @@
 				D91EE9302EB7AB6000EE4CB0 /* Memories */,
 				D91EE9322EB7AB6500EE4CB0 /* Settings */,
 				D91EE93C2EB7C9D100EE4CB0 /* Utilities */,
-				D9254B522EBBBD2400052A4A /* Extensions */,
 			);
 			productName = Pixely;
 			productReference = D91EE68E2EB6905400EE4CB0 /* Pixely.app */;
@@ -659,10 +654,6 @@
 		D91EE93C2EB7C9D100EE4CB0 /* Utilities */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Utilities;
-		};
-		D9254B522EBBBD2400052A4A /* Extensions */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Extensions;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

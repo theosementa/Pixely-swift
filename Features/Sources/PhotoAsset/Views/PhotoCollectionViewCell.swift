@@ -80,7 +80,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     // MARK: - Configuration
     func configure(
         with asset: PHAsset,
-        assetDetailed: AssetDetailedEntity? = nil,
+        assetDetailed: PHAssetDetailedModel? = nil,
         targetSize: CGSize,
         cacheManager: PHCachingImageManager,
         options: PHImageRequestOptions? = nil
