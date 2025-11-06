@@ -8,22 +8,50 @@
 import Foundation
 import SwiftUI
 
-public struct AlbumModel: Identifiable, Sendable, Hashable {
+public struct AlbumModel: AlbumProtocol, Sendable {
     public var id: UUID
     public var name: String
     public var emoji: String
     public var color: Color
+    public var subAlbumsIds: [String]?
+    public var subAlbums: [SubAlbumModel]?
     
     public init(
         id: UUID,
         name: String,
         emoji: String,
-        color: Color
+        color: Color,
+        subAlbumsIds: [String]? = nil,
+        subAlbums: [SubAlbumModel]? = nil
     ) {
         self.id = id
         self.name = name
         self.emoji = emoji
         self.color = color
+        self.subAlbums = subAlbums
+        self.subAlbumsIds = subAlbumsIds
+    }
+}
+
+public struct SubAlbumModel: AlbumProtocol, Sendable {
+    public var id: UUID
+    public var name: String
+    public var emoji: String
+    public var color: Color
+    public var parentAlbumId: UUID
+    
+    public init(
+        id: UUID,
+        name: String,
+        emoji: String,
+        color: Color,
+        parentAlbumId: UUID
+    ) {
+        self.id = id
+        self.name = name
+        self.emoji = emoji
+        self.color = color
+        self.parentAlbumId = parentAlbumId
     }
 }
 

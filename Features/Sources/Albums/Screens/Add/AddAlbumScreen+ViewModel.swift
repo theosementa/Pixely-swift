@@ -19,14 +19,15 @@ extension AddAlbumScreen {
         var name: String = ""
         var emoji: String = "🤖"
         var color: Color = .red
+        var parentAlbum: AlbumModel?
         
         var isEmojiPickerPresented: Bool = false
         
         @ObservationIgnored
         @Dependency(\.albumStore) private var albumStore
         
-        init(albumId: UUID?) {
-            
+        init(parentAlbum: AlbumModel? = nil, albumId: UUID?) {
+            self.parentAlbum = parentAlbum
         }
         
     }
@@ -51,7 +52,8 @@ extension AddAlbumScreen.ViewModel {
         let body: AlbumBody = .create(
             name: name,
             emoji: emoji,
-            colorHex: color.toHex() ?? ""
+            colorHex: color.toHex() ?? "",
+            parentAlbum: parentAlbum
         )
         
         albumStore.create(body: body)

@@ -8,6 +8,7 @@
 import SwiftUI
 import MCEmojiPicker
 import DesignSystem
+import Models
 
 public struct AddAlbumScreen: View {
     
@@ -15,8 +16,8 @@ public struct AddAlbumScreen: View {
     @State private var viewModel: ViewModel
     
     // MARK: Init
-    public init(albumId: UUID? = nil) {
-        self._viewModel = State(wrappedValue: .init(albumId: albumId))
+    public init(parentAlbum: AlbumModel? = nil, albumId: UUID? = nil) {
+        self._viewModel = State(wrappedValue: .init(parentAlbum: parentAlbum, albumId: albumId))
     }
     
     // MARK: - View

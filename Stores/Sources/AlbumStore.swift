@@ -9,10 +9,13 @@ import Foundation
 import Models
 import Repositories
 import Dependencies
+import Utilities
 
 @MainActor @Observable
 public final class AlbumStore {    
     public var albums: [AlbumModel] = []
+    public var parentAlbums: [AlbumModel] = []
+    public var subAlbums: [SubAlbumModel] = []
 }
 
 public extension AlbumStore {
@@ -20,12 +23,45 @@ public extension AlbumStore {
     func fetchAll() {
         do {
             let entities = try AlbumRepository.fetchAll()
-            self.albums = entities.map { $0.toModel() }
-        } catch {
             
+            self.albums = entities.map { $0.toModel() }
+            
+            self.parentAlbums = entities
+                .filter { $0.isParentAlbum }
+                .map { $0.toModel() }
+            
+            var subAlbumIdToParentId: [String: UUID] = [:]
+            for parent in self.parentAlbums {
+                parent.subAlbumsIds?.forEach { subAlbumId in
+                    subAlbumIdToParentId[subAlbumId] = parent.id
+                }
+            }
+            
+            self.subAlbums = entities
+                .compactMap { entity -> SubAlbumModel? in
+                    guard let parentId = subAlbumIdToParentId[entity.id.uuidString] else {
+                        return nil
+                    }
+                    return entity.toSubAlbum(parentId: parentId)
+                }
+        } catch {
+
         }
     }
     
+    func fetchOne(id: UUID) -> AlbumModel? {
+        return albums.first(where: { $0.id == id })
+    }
+    
+    func fetchSubAlbums(for album: AlbumModel) -> [SubAlbumModel] {
+        guard let subAlbumsIds = album.subAlbumsIds else {
+            return []
+        }
+        
+        return subAlbums.filter { subAlbum in
+            subAlbumsIds.contains(subAlbum.id.uuidString)
+        }
+    }
     
     func fetchOneAndUpdate(_ id: UUID) {
         do {

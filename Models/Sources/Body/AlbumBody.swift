@@ -12,6 +12,7 @@ public struct AlbumBody: BodyProtocol {
     public var name: String?
     public var emoji: String?
     public var colorHex: String?
+    public var parentAlbum: AlbumModel?
 }
 
 public extension AlbumBody {
@@ -19,12 +20,14 @@ public extension AlbumBody {
     static func create(
         name: String,
         emoji: String? = nil,
-        colorHex: String
+        colorHex: String,
+        parentAlbum: AlbumModel?
     ) -> AlbumBody {
         return .init(
             name: name,
             emoji: emoji,
-            colorHex: colorHex
+            colorHex: colorHex,
+            parentAlbum: parentAlbum
         )
     }
     
@@ -32,13 +35,15 @@ public extension AlbumBody {
         id: UUID,
         name: String? = nil,
         emoji: String? = nil,
-        colorHex: String? = nil
+        colorHex: String? = nil,
+        parentAlbum: AlbumModel?
     ) -> AlbumBody {
         return .init(
             id: id,
-            name: name ?? "",
-            emoji: emoji ?? "",
-            colorHex: colorHex ?? ""
+            name: name,
+            emoji: emoji,
+            colorHex: colorHex,
+            parentAlbum: parentAlbum
         )
     }
     

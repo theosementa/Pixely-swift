@@ -31,6 +31,7 @@ struct RootScreen: View {
         }
         .environment(assetManager)
         .onAppear {
+            assetManager.askForAuthorization()
             albumStore.fetchAll()
         }
     }

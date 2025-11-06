@@ -22,7 +22,7 @@ public class AlbumEntity: NSManagedObject, Identifiable {
     @NSManaged public var colorHex: String
     @NSManaged public var emoji: String?
     @NSManaged public var assets: Set<AssetDetailedEntity>?
-
+    @NSManaged public var subAlbumsIds: [String]
 }
 
 // MARK: Generated accessors for assets
@@ -44,13 +44,8 @@ extension AlbumEntity {
 
 extension AlbumEntity {
     
-    public func toModel() -> AlbumModel {
-        return .init(
-            id: id,
-            name: name,
-            emoji: emoji ?? "",
-            color: Color(colorHex)
-        )
+    public var isParentAlbum: Bool {
+        return !subAlbumsIds.isEmpty
     }
     
 }

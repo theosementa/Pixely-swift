@@ -8,19 +8,24 @@
 import Foundation
 import Stores
 import Dependencies
+import Models
 
 extension AlbumDetailScreen {
     
-    @Observable
+    @MainActor @Observable
     final class ViewModel {
         
         var albumId: UUID
+        var album: AlbumModel?
         
         @ObservationIgnored
         @Dependency(\.albumStore) var albumStore
         
         init(albumId: UUID) {
             self.albumId = albumId
+            if let currentAlbum = albumStore.fetchOne(id: albumId) {
+                self.album = currentAlbum
+            }
         }
         
     }

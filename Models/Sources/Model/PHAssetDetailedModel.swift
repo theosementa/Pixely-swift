@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreLocation
-import Utilities
 
 public struct PHAssetDetailedModel {
     public var assetId: String? // AssetId

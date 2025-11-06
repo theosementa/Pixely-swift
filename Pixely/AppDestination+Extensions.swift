@@ -36,6 +36,8 @@ extension AppDestination {
             AlbumsListScreen()
         case .create:
             AddAlbumScreen()
+        case .createSubAlbum(let parentAlbum):
+            AddAlbumScreen(parentAlbum: parentAlbum)
         case .update(let albumId):
             AddAlbumScreen(albumId: albumId)
         case .detail(let albumId):

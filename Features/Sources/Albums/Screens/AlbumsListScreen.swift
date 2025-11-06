@@ -26,7 +26,7 @@ public struct AlbumsListScreen: View {
                 Text("Create album")
             }
             
-            List(albumStore.albums) { album in
+            List(albumStore.parentAlbums) { album in
                 NavigationButtonView(
                     route: .push,
                     destination: .album(.detail(albumId: album.id))

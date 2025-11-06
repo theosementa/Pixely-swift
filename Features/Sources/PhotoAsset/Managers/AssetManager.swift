@@ -52,6 +52,12 @@ extension AssetManager {
         }
     }
     
+    public func askForAuthorization() {
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { _ in
+            
+        }
+    }
+    
 }
 
 extension AssetManager {
