@@ -28,16 +28,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         return indicator
     }()
     
-    private let albumIconView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .white
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 8
-        imageView.clipsToBounds = true
-        imageView.isHidden = true
-        imageView.contentMode = .center
-        return imageView
+    private let albumLabelView: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        label.textColor = .white
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 12
+        return label
     }()
     
     // MARK: - Initialization
@@ -54,7 +53,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     private func setupView() {
         contentView.addSubview(imageView)
         contentView.addSubview(activityIndicator)
-        contentView.addSubview(albumIconView)
+        contentView.addSubview(albumLabelView)
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -66,15 +65,15 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             activityIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             
             // Position the album icon in the bottom right corner with padding
-            albumIconView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
-            albumIconView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
-            albumIconView.widthAnchor.constraint(equalToConstant: 24),
-            albumIconView.heightAnchor.constraint(equalToConstant: 24)
+            albumLabelView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -4),
+            albumLabelView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+            albumLabelView.widthAnchor.constraint(equalToConstant: 24),
+            albumLabelView.heightAnchor.constraint(equalToConstant: 24)
         ])
         
         // Add padding inside the album icon
         let iconPadding: CGFloat = 4
-        albumIconView.layoutMargins = UIEdgeInsets(top: iconPadding, left: iconPadding, bottom: iconPadding, right: iconPadding)
+        albumLabelView.layoutMargins = UIEdgeInsets(top: iconPadding, left: iconPadding, bottom: iconPadding, right: iconPadding)
     }
     
     // MARK: - Configuration
@@ -88,16 +87,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         prepareForReuse()
         activityIndicator.startAnimating()
         
-//        if let assetDetailed { // TODO: Reactive
-//            let iconImage = UIImage(named: assetDetailed.album.iconString)
-//            albumIconView.image = iconImage
-//            albumIconView.tintColor = .white
-//            albumIconView.contentMode = .scaleAspectFit
-//            albumIconView.isHidden = false
-//            albumIconView.backgroundColor = UIColor(assetDetailed.album.color)
-//        } else {
-            albumIconView.isHidden = true
-//        }
+        if let assetDetailed, let album = assetDetailed.album, album != .noAlbum {
+            albumLabelView.text = album.emoji
+            albumLabelView.backgroundColor = UIColor(album.color)
+            albumLabelView.isHidden = false
+        } else {
+            albumLabelView.isHidden = true
+        }
         
         return cacheManager.requestImage(
             for: asset,
@@ -125,6 +121,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
         imageView.image = nil
         activityIndicator.stopAnimating()
-        albumIconView.isHidden = true
+        albumLabelView.isHidden = true
     }
 }

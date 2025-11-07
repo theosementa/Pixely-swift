@@ -15,10 +15,10 @@ import Gallery
 import PhotoAsset
 
 struct RootScreen: View {
-        
-    @State private var assetManager: AssetManager = .init()
     
+    @Dependency(\.assetManager) private var assetManager
     @Dependency(\.albumStore) private var albumStore
+    @Dependency(\.assetDetailedStore) private var assetDetailedStore
         
     // MARK: - View
     var body: some View {
@@ -33,6 +33,7 @@ struct RootScreen: View {
         .onAppear {
             assetManager.askForAuthorization()
             albumStore.fetchAll()
+            assetDetailedStore.fetchAll()
         }
     }
 }

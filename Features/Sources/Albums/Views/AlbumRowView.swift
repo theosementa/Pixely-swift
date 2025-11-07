@@ -13,7 +13,7 @@ import Dependencies
 struct AlbumRowView: View {
     
     // MARK: Dependencies
-    let album: AlbumModel
+    let album: any AlbumProtocol
     
     @Dependency(\.albumStore) private var albumStore
     
@@ -32,5 +32,5 @@ struct AlbumRowView: View {
 
 // MARK: - Preview
 #Preview {
-    AlbumRowView(album: .mock)
+    AlbumRowView(album: AlbumModel.mock)
 }

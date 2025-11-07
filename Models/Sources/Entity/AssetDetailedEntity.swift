@@ -52,24 +52,3 @@ extension AssetDetailedEntity {
     @NSManaged public func removeFromTags(_ values: NSSet)
 
 }
-
-extension AssetDetailedEntity {
-    
-    public func toModel() -> PHAssetDetailedModel {
-        return .init(
-            assetId: self.assetId,
-            model: self.model,
-            make: self.make,
-            software: self.software,
-            dateTime: self.dateTime,
-            latitude: self.latitude,
-            longitude: self.longitude,
-            focal: Int(self.focal),
-            opening: self.opening,
-            fileSize: Int(self.fileSize),
-            pixelWidth: Int(self.pixelWidth),
-            pixelHeight: Int(self.pixelHeight)
-        )
-    }
-    
-}

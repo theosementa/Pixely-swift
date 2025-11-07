@@ -9,6 +9,7 @@ import Foundation
 import CoreLocation
 
 public struct PHAssetDetailedModel {
+    public var album: AlbumModel?
     public var assetId: String? // AssetId
 
     public var model: String? // TIFF
@@ -27,6 +28,7 @@ public struct PHAssetDetailedModel {
     public var pixelHeight: Int? // PixelHeight
     
     public init(
+        album: AlbumModel? = nil,
         assetId: String? = nil,
         model: String? = nil,
         make: String? = nil,
@@ -40,6 +42,7 @@ public struct PHAssetDetailedModel {
         pixelWidth: Int? = nil,
         pixelHeight: Int? = nil
     ) {
+        self.album = album
         self.assetId = assetId
         self.model = model
         self.make = make

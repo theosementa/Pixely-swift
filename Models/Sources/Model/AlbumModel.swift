@@ -33,6 +33,15 @@ public struct AlbumModel: AlbumProtocol, Sendable {
     }
 }
 
+extension AlbumModel {
+    
+    public var isParentAlbum: Bool {
+        guard let subAlbumsIds else { return true }
+        return !subAlbumsIds.isEmpty
+    }
+    
+}
+
 public struct SubAlbumModel: AlbumProtocol, Sendable {
     public var id: UUID
     public var name: String

@@ -9,12 +9,14 @@ import SwiftUI
 import Stores
 import Dependencies
 import Navigation
+import PhotoAsset
 
 public struct AlbumDetailScreen: View {
     
     @State private var viewModel: ViewModel
     
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var router: Router<AppDestination>
         
     // MARK: Init
     public init(albumId: UUID) {
@@ -28,8 +30,14 @@ public struct AlbumDetailScreen: View {
                 Text("Hello, World! \(viewModel.albumId)")
                 
                 if let subAlbums = album.subAlbums {
-                    ForEach(subAlbums, id: \.self) { album in
-                        Text(album.name)
+                    ForEach(subAlbums, id: \.self) { subAlbum in
+                        NavigationButtonView(
+                            route: .push,
+                            destination: .album(.detail(albumId: subAlbum.id))
+                        ) {
+                            AlbumRowView(album: subAlbum)
+                                .padding(8)
+                        }
                     }
                 }
                 
@@ -46,6 +54,14 @@ public struct AlbumDetailScreen: View {
                 } label: {
                     Text("Delete")
                 }
+                
+                PhotoCollectionView(
+                    assets: viewModel.assets,
+                    itemSpacing: 2,
+                    onAssetSelected: {
+                        router.push(.gallery(.assetDetail(asset: $0)))
+                    }
+                )
             }
         }
         .onAppear {

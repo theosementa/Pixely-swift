@@ -10,6 +10,7 @@ import Photos
 import SwiftUI
 import Stores
 import Utilities
+import Dependencies
 
 public struct PhotoCollectionView: UIViewRepresentable {
     
@@ -19,7 +20,7 @@ public struct PhotoCollectionView: UIViewRepresentable {
     var onAssetSelected: (PHAsset) -> Void
     var headerHeight: CGFloat = 0
     var footerHeight: CGFloat = 0
-    
+        
     // MARK: Environments
     @Environment(AssetManager.self) private var assetManager
     
@@ -100,6 +101,8 @@ public struct PhotoCollectionView: UIViewRepresentable {
         private let imageRequestOptions: PHImageRequestOptions
         var assets: [PHAsset] = []
         
+        @Dependency(\.assetDetailedStore) private var assetDetailedStore
+        
         private var imageRequestIDs: [IndexPath: PHImageRequestID] = [:]
         
         init(_ parent: PhotoCollectionView, cacheManager: PHCachingImageManager, onAssetSelected: @escaping (PHAsset) -> Void) {
@@ -144,7 +147,7 @@ public struct PhotoCollectionView: UIViewRepresentable {
             
             let requestID = cell.configure(
                 with: asset,
-                assetDetailed: AssetDetailedStore.shared.findOneBy(asset.id),
+                assetDetailed: assetDetailedStore.findOneBy(asset.id),
                 targetSize: itemSize.multiplying(by: 3.5),
                 cacheManager: cacheManager,
                 options: imageRequestOptions

@@ -19,6 +19,7 @@
 		D91EE9312EB7AB6000EE4CB0 /* Memories in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE9302EB7AB6000EE4CB0 /* Memories */; };
 		D91EE9332EB7AB6500EE4CB0 /* Settings in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE9322EB7AB6500EE4CB0 /* Settings */; };
 		D91EE93D2EB7C9D100EE4CB0 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE93C2EB7C9D100EE4CB0 /* Utilities */; };
+		D9E242E32EBE20D100B873F8 /* PhotoAsset in Frameworks */ = {isa = PBXBuildFile; productRef = D9E242E22EBE20D100B873F8 /* PhotoAsset */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 				D91EE7FC2EB73D4C00EE4CB0 /* Models in Frameworks */,
 				D91EE93D2EB7C9D100EE4CB0 /* Utilities in Frameworks */,
 				D91EE8982EB7945100EE4CB0 /* Gallery in Frameworks */,
+				D9E242E32EBE20D100B873F8 /* PhotoAsset in Frameworks */,
 				D91EE9312EB7AB6000EE4CB0 /* Memories in Frameworks */,
 				D91EE8932EB779AD00EE4CB0 /* Stores in Frameworks */,
 				D91EE75C2EB73B8800EE4CB0 /* Persistence in Frameworks */,
@@ -169,6 +171,7 @@
 				D91EE9302EB7AB6000EE4CB0 /* Memories */,
 				D91EE9322EB7AB6500EE4CB0 /* Settings */,
 				D91EE93C2EB7C9D100EE4CB0 /* Utilities */,
+				D9E242E22EBE20D100B873F8 /* PhotoAsset */,
 			);
 			productName = Pixely;
 			productReference = D91EE68E2EB6905400EE4CB0 /* Pixely.app */;
@@ -654,6 +657,10 @@
 		D91EE93C2EB7C9D100EE4CB0 /* Utilities */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Utilities;
+		};
+		D9E242E22EBE20D100B873F8 /* PhotoAsset */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = PhotoAsset;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

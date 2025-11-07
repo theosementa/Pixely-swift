@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-public struct ImageWithInfoModel: @unchecked Sendable { // TODO: Sendable + delete type of info to replace with String or Int etc ...
+// TODO: Sendable + delete type of info to replace with String or Int etc ...
+public struct ImageWithInfoModel: @unchecked Sendable {
     public var image: UIImage?
     public var info: [AnyHashable: Any]?
     

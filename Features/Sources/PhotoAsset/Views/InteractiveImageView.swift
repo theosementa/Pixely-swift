@@ -76,9 +76,6 @@ public extension InteractiveImageView {
     }
 }
 
-
-
-
 // MARK: - UIKit
 public final class InteractiveImage: UIScrollView {
     private var contentView: UIImageView?
@@ -86,9 +83,7 @@ public final class InteractiveImage: UIScrollView {
 
     public var image: UIImage? {
         didSet {
-            if let currentImage = contentView?.image,
-               currentImage == image
-            {
+            if let currentImage = contentView?.image, currentImage == image {
                 return
             }
             display(image: image)

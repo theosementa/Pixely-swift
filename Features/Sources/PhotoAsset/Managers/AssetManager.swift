@@ -7,9 +7,10 @@
 
 import Photos
 import Models
+import Dependencies
 
 @Observable
-public final class AssetManager: NSObject {
+public final class AssetManager: NSObject, @unchecked Sendable {
     
     let photoLibrary = PHPhotoLibrary.shared()
     
@@ -212,3 +213,16 @@ extension AssetManager: PHPhotoLibraryChangeObserver {
     }
     
 }
+
+// MARK: - Dependencies
+struct AssetManagerKey: DependencyKey {
+    public static let liveValue: AssetManager = .init()
+}
+
+extension DependencyValues {
+    public var assetManager: AssetManager {
+        get { self[AssetManagerKey.self] }
+        set { self[AssetManagerKey.self] = newValue }
+    }
+}
+

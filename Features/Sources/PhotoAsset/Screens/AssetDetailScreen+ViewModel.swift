@@ -18,16 +18,16 @@ extension AssetDetailScreen {
         
         var asset: PHAsset
         
-        var albumSelected: AlbumModel = .noAlbum
+        var albumSelectedId: UUID = AlbumModel.noAlbum.id
         
         var detailedAsset: PHAssetDetailedModel?
         var assetEntity: AssetDetailedEntity?
         
         @ObservationIgnored
-        @Dependency(\.albumStore) var albumStore
+        @Dependency(\.albumStore) private var albumStore
         
         @ObservationIgnored
-        @Dependency(\.assetDetailedStore) var assetDetailedStore
+        @Dependency(\.assetDetailedStore) private var assetDetailedStore
         
         init(asset: PHAsset) {
             self.asset = asset
@@ -37,14 +37,45 @@ extension AssetDetailScreen {
     
 }
 
+// MARK: - Computed variables
 extension AssetDetailScreen.ViewModel {
+    
+    var parentAlbumsSelectable: [AlbumModel] {
+        var parentsAlbums = albumStore.parentAlbums
+            .sorted { $0.name < $1.name }
+        parentsAlbums.insert(.noAlbum, at: 0)
+        return parentsAlbums
+    }
+    
+    var subAlbumsSelectable: [SubAlbumModel] {
+        return albumStore.subAlbums
+            .sorted { $0.name < $1.name }
+    }
+    
+    var albumSelected: AlbumModel? {
+        return albumStore.fetchOne(id: albumSelectedId)
+    }
+}
+
+// MARK: - Public functions
+extension AssetDetailScreen.ViewModel {
+    
+    func onSelectNewAlbum(_ newAlbumId: UUID) {
+        if let assetEntity {
+            assetDetailedStore.updateAlbum(assetEntity, newAlbumId: albumSelectedId)
+        } else {
+            if let detailedAsset, let albumSelected, let body = detailedAsset.toBody(album: albumSelected) {
+                assetDetailedStore.create(body)
+            }
+        }
+    }
     
     func loadEntity() {
         let assetEntity = assetDetailedStore.fetchOneEntity(phAssetId: asset.id)
         self.assetEntity = assetEntity
-        print("🔥 ASSET : \(assetEntity)")
         if let assetEntity, let album = assetEntity.album {
-            self.albumSelected = album.toModel()
+            self.albumSelectedId = album.id
+            self.detailedAsset = assetEntity.toModel()
         }
     }
     

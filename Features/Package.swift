@@ -32,6 +32,7 @@ let package = Package(
                 "DesignSystem",
                 "Navigation",
                 "Utilities",
+                "PhotoAsset",
                 .product(name: "Dependencies", package: "swift-dependencies"),
                 .product(name: "MCEmojiPicker", package: "MCEmojiPicker")
             ]
@@ -76,11 +77,8 @@ let package = Package(
                 "Models",
                 "Stores",
                 "DesignSystem",
-                "Utilities"
-            ],
-            swiftSettings: [
-                .swiftLanguageMode(.v6),
-                .enableUpcomingFeature("StrictConcurrency")
+                "Utilities",
+                .product(name: "Dependencies", package: "swift-dependencies")
             ]
         ),
         .testTarget(name: "PhotoAssetTests", dependencies: ["PhotoAsset"])

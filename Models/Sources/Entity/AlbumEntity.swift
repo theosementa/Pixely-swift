@@ -21,6 +21,7 @@ public class AlbumEntity: NSManagedObject, Identifiable {
     @NSManaged public var name: String
     @NSManaged public var colorHex: String
     @NSManaged public var emoji: String?
+    @NSManaged public var notes: String?
     @NSManaged public var assets: Set<AssetDetailedEntity>?
     @NSManaged public var subAlbumsIds: [String]
 }

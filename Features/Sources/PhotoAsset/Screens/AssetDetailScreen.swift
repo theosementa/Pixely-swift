@@ -8,6 +8,7 @@
 import SwiftUI
 import Photos
 import Dependencies
+import Models
 
 public struct AssetDetailScreen: View {
         
@@ -25,31 +26,41 @@ public struct AssetDetailScreen: View {
             } else {
                 Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
             }
+            Text(viewModel.detailedAsset?.album?.name ?? "no")
+            Text(viewModel.detailedAsset?.software ?? "no")
         }
         .overlay(alignment: .topTrailing) {
-            Picker("Album", selection: $viewModel.albumSelected) {
-                ForEach(viewModel.albumStore.albums) { album in
-                    Text(album.name).tag(album)
+            Picker(selection: $viewModel.albumSelectedId) {
+                Section {
+                    ForEach(viewModel.parentAlbumsSelectable) { album in
+                        Text(album.name).tag(album.id)
+                    }
+                } header: {
+                    Text("Albums")
                 }
+
+                Section {
+                    ForEach(viewModel.subAlbumsSelectable) { subAlbum in
+                        Text(subAlbum.name).tag(subAlbum.id)
+                    }
+                } header: {
+                    Text("Subalbums")
+                }
+            } label: {
+                Text(viewModel.albumSelected?.name ?? "")
             }
             .padding()
-            .onChange(of: viewModel.albumSelected) { _, newValue in
-                if newValue != .noAlbum {
-                    if let assetEntity = viewModel.assetEntity {
-                        viewModel.assetDetailedStore.updateAlbum(assetEntity, newAlbum: newValue)
-                    } else {
-                        if let detailedAsset = viewModel.detailedAsset, let body = detailedAsset.toBody(album: newValue) {
-                            viewModel.assetDetailedStore.create(body)
-                        }
-                    }
-                }
+            .onChange(of: viewModel.albumSelectedId) { _, newValue in
+                viewModel.onSelectNewAlbum(newValue)
             }
         }
         .onAppear {
             viewModel.loadEntity()
             
-            PHAssetHelper.detailed(for: viewModel.asset) { detailedAsset in
-                self.viewModel.detailedAsset = detailedAsset
+            if self.viewModel.detailedAsset == nil {
+                PHAssetHelper.detailed(for: viewModel.asset) { detailedAsset in
+                    self.viewModel.detailedAsset = detailedAsset
+                }
             }
         }
     }

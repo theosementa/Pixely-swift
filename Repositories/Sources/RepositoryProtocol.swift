@@ -15,7 +15,6 @@ public protocol RepositoryProtocol {
     associatedtype BodyObject: BodyProtocol
         
     static func create(body: BodyObject) throws -> Entity
-    static func update(body: BodyObject) throws -> Entity
 }
 
 extension RepositoryProtocol {

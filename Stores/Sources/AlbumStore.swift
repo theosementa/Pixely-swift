@@ -12,10 +12,36 @@ import Dependencies
 import Utilities
 
 @MainActor @Observable
-public final class AlbumStore {    
+public final class AlbumStore {
+    
     public var albums: [AlbumModel] = []
-    public var parentAlbums: [AlbumModel] = []
-    public var subAlbums: [SubAlbumModel] = []
+    
+}
+
+public extension AlbumStore {
+    
+    var parentAlbums: [AlbumModel] {
+        return self.albums
+            .filter { $0.isParentAlbum }
+    }
+    
+    var subAlbums: [SubAlbumModel] {
+        var subAlbumIdToParentId: [String: UUID] = [:]
+        for parent in self.parentAlbums {
+            parent.subAlbumsIds?.forEach { subAlbumId in
+                subAlbumIdToParentId[subAlbumId] = parent.id
+            }
+        }
+        
+        return albums
+            .compactMap { model -> SubAlbumModel? in
+                guard let parentId = subAlbumIdToParentId[model.id.uuidString] else {
+                    return nil
+                }
+                return model.toSubAlbum(parentId: parentId)
+            }
+    }
+    
 }
 
 public extension AlbumStore {
@@ -24,28 +50,10 @@ public extension AlbumStore {
         do {
             let entities = try AlbumRepository.fetchAll()
             
-            self.albums = entities.map { $0.toModel() }
-            
-            self.parentAlbums = entities
-                .filter { $0.isParentAlbum }
+            self.albums = entities
                 .map { $0.toModel() }
-            
-            var subAlbumIdToParentId: [String: UUID] = [:]
-            for parent in self.parentAlbums {
-                parent.subAlbumsIds?.forEach { subAlbumId in
-                    subAlbumIdToParentId[subAlbumId] = parent.id
-                }
-            }
-            
-            self.subAlbums = entities
-                .compactMap { entity -> SubAlbumModel? in
-                    guard let parentId = subAlbumIdToParentId[entity.id.uuidString] else {
-                        return nil
-                    }
-                    return entity.toSubAlbum(parentId: parentId)
-                }
         } catch {
-
+            
         }
     }
     
@@ -54,9 +62,7 @@ public extension AlbumStore {
     }
     
     func fetchSubAlbums(for album: AlbumModel) -> [SubAlbumModel] {
-        guard let subAlbumsIds = album.subAlbumsIds else {
-            return []
-        }
+        guard let subAlbumsIds = album.subAlbumsIds else { return [] }
         
         return subAlbums.filter { subAlbum in
             subAlbumsIds.contains(subAlbum.id.uuidString)
@@ -83,6 +89,17 @@ public extension AlbumStore {
         }
     }
     
+    func update(body: AlbumBody, isNewParentAlbum: Bool = false) {
+        do {
+            let updatedAlbum = try AlbumRepository.update(body: body, isNewParentAlbum: isNewParentAlbum)
+            if let index = self.albums.firstIndex(where: { $0.id == updatedAlbum.id }) {
+                self.albums[index] = updatedAlbum.toModel()
+            }
+        } catch {
+            
+        }
+    }
+    
     func delete(id: UUID) {
         do {
             try AlbumRepository.delete(id: id)
@@ -92,15 +109,19 @@ public extension AlbumStore {
         }
     }
     
-    func assetCount(for album: AlbumModel) -> Int {
+}
+
+// MARK: - Utils
+extension AlbumStore {
+    
+    public func assetCount(for album: any AlbumProtocol) -> Int {
         do {
-            let entity = try AlbumRepository.fetchOne(id: album.id)
-            return try AlbumRepository.fetchAssetCount(for: entity)
+            return try AlbumRepository.fetchAssetCount(for: album)
         } catch {
             return 0
         }
     }
-
+    
 }
 
 // MARK: - Dependencies

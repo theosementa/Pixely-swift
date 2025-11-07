@@ -30,45 +30,49 @@ final class PHAssetHelper {
         options.isNetworkAccessAllowed = true
         options.isSynchronous = false
         
-        PHImageManager.default().requestImageDataAndOrientation(for: asset, options: options) { imageData, dataUTI, orientation, info in
-            guard let imageData = imageData,
-                  let imageSource = CGImageSourceCreateWithData(imageData as CFData, nil),
-                  let metadata = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [String: Any] else {
+        PHImageManager
+            .default()
+            .requestImageDataAndOrientation(
+                for: asset,
+                options: options
+            ) { imageData, _, _, _ in
+                guard let imageData = imageData,
+                      let imageSource = CGImageSourceCreateWithData(imageData as CFData, nil),
+                      let metadata = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [String: Any] else {
+                    group.leave()
+                    return
+                }
+                
+                // Extraction des métadonnées TIFF
+                if let tiffMetadata = metadata[kCGImagePropertyTIFFDictionary as String] as? [String: Any] {
+                    detailedAsset.model = tiffMetadata["Model"] as? String
+                    detailedAsset.make = tiffMetadata["Make"] as? String
+                    detailedAsset.software = tiffMetadata["Software"] as? String
+                    detailedAsset.dateTime = tiffMetadata["DateTime"] as? String
+                }
+                
+                // Extraction des métadonnées GPS
+                if let gpsMetadata = metadata[kCGImagePropertyGPSDictionary as String] as? [String: Any] {
+                    detailedAsset.latitude = gpsMetadata["Latitude"] as? Double
+                    detailedAsset.longitude = gpsMetadata["Longitude"] as? Double
+                }
+                
+                // Extraction des métadonnées EXIF
+                if let exifMetadata = metadata[kCGImagePropertyExifDictionary as String] as? [String: Any] {
+                    detailedAsset.focal = exifMetadata["FocalLenIn35mmFilm"] as? Int
+                    detailedAsset.opening = (exifMetadata["LensModel"] as? String)?.removeAllBefore("f/")
+                }
+                
+                // Extraction des dimensions
+                detailedAsset.pixelWidth = metadata["PixelWidth"] as? Int
+                detailedAsset.pixelHeight = metadata["PixelHeight"] as? Int
+                
+                //            if let exifAuxMetadata = metadata[("ExifAux" as CFString) as String] as? [String: Any] {
+                //                detailedAsset.focalLength = exifAuxMetadata["LensModel"] as? String
+                //            }
+                //
                 group.leave()
-                return
             }
-            
-            // Extraction des métadonnées TIFF
-            if let tiffMetadata = metadata[kCGImagePropertyTIFFDictionary as String] as? [String: Any] {
-                detailedAsset.model = tiffMetadata["Model"] as? String
-                detailedAsset.make = tiffMetadata["Make"] as? String
-                detailedAsset.software = tiffMetadata["Software"] as? String
-                detailedAsset.dateTime = tiffMetadata["DateTime"] as? String
-            }
-            
-            // Extraction des métadonnées GPS
-            if let gpsMetadata = metadata[kCGImagePropertyGPSDictionary as String] as? [String: Any] {
-                detailedAsset.latitude = gpsMetadata["Latitude"] as? Double
-                detailedAsset.longitude = gpsMetadata["Longitude"] as? Double
-            }
-            
-            // Extraction des métadonnées EXIF
-            if let exifMetadata = metadata[kCGImagePropertyExifDictionary as String] as? [String: Any] {
-                detailedAsset.focal = exifMetadata["FocalLenIn35mmFilm"] as? Int
-                detailedAsset.opening = (exifMetadata["LensModel"] as? String)?.removeAllBefore("f/")
-            }
-            
-            // Extraction des dimensions
-            detailedAsset.pixelWidth = metadata["PixelWidth"] as? Int
-            detailedAsset.pixelHeight = metadata["PixelHeight"] as? Int
-            
-            
-//            if let exifAuxMetadata = metadata[("ExifAux" as CFString) as String] as? [String: Any] {
-//                detailedAsset.focalLength = exifAuxMetadata["LensModel"] as? String
-//            }
-//            
-            group.leave()
-        }
         
         // Notification une fois toutes les tâches terminées
         group.notify(queue: .main) {
@@ -84,16 +88,21 @@ final class PHAssetHelper {
         options.isNetworkAccessAllowed = true
         options.isSynchronous = false
         
-        PHImageManager.default().requestImageDataAndOrientation(for: asset, options: options) { imageData, dataUTI, orientation, info in
-            guard let imageData = imageData,
-                  let imageSource = CGImageSourceCreateWithData(imageData as CFData, nil),
-                  let metadata = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [String: Any] else {
-                return
+        PHImageManager
+            .default()
+            .requestImageDataAndOrientation(
+                for: asset,
+                options: options
+            ) { imageData, _, _, _ in
+                guard let imageData = imageData,
+                      let imageSource = CGImageSourceCreateWithData(imageData as CFData, nil),
+                      let metadata = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil) as? [String: Any] else {
+                    return
+                }
+                
+                print("Métadonnées complètes:")
+                self.printFormattedMetadata(metadata)
             }
-            
-            print("Métadonnées complètes:")
-            self.printFormattedMetadata(metadata)
-        }
     }
     
     // Méthode utilitaire pour imprimer les métadonnées de manière formatée
@@ -131,10 +140,15 @@ class AccurateFileSizeHelper {
         }
         
         // Méthode 2 : Récupération des données complètes
-        PHImageManager.default().requestImageDataAndOrientation(for: asset, options: options) { imageData, dataUTI, orientation, info in
-            let imageSize = imageData?.count ?? 0
-            completion(imageSize > 0 ? imageSize : nil, false)
-        }
+        PHImageManager
+            .default()
+            .requestImageDataAndOrientation(
+                for: asset,
+                options: options
+            ) { imageData, _, _, _ in
+                let imageSize = imageData?.count ?? 0
+                completion(imageSize > 0 ? imageSize : nil, false)
+            }
     }
     
 }

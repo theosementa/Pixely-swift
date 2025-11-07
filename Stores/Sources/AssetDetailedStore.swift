@@ -13,8 +13,6 @@ import Persistence
 
 @MainActor @Observable
 public final class AssetDetailedStore {
-    public static let shared = AssetDetailedStore()
-    
     public var assets: [PHAssetDetailedModel] = []
     
     @ObservationIgnored
@@ -22,6 +20,17 @@ public final class AssetDetailedStore {
 }
 
 public extension AssetDetailedStore {
+    
+    @MainActor
+    func fetchAll() {
+        do {
+            let assets = try AssetDetailedRepository.fetchAll()
+            self.assets = assets
+                .map { $0.toModel() }
+        } catch {
+            
+        }
+    }
     
     @MainActor
     func create(_ body: AssetDetailledBody) {
@@ -37,14 +46,14 @@ public extension AssetDetailedStore {
     }
     
     @MainActor
-    func updateAlbum(_ assetEntity: AssetDetailedEntity, newAlbum: AlbumModel) {
+    func updateAlbum(_ assetEntity: AssetDetailedEntity, newAlbumId: UUID) {
         do {
             if let assetEntity = try AssetDetailedRepository.fetchOneEntity(phAssetId: assetEntity.assetId) {
-                let albumEntity = try AlbumRepository.fetchOne(id: newAlbum.id)
+                let albumEntity = try AlbumRepository.fetchOne(id: newAlbumId)
                 assetEntity.album = albumEntity
                 
                 try CoreDataStack.shared.viewContext.save()
-                albumStore.fetchOneAndUpdate(newAlbum.id)
+                albumStore.fetchOneAndUpdate(newAlbumId)
                 
                 if let index = assets.firstIndex(where: { $0.assetId == assetEntity.assetId }) {
                     self.assets[index] = assetEntity.toModel()
@@ -85,4 +94,3 @@ public extension DependencyValues {
         set { self[AssetDetailedKey.self] = newValue }
     }
 }
-
