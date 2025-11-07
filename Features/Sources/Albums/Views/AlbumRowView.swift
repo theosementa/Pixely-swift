@@ -23,6 +23,7 @@ struct AlbumRowView: View {
             Text(album.emoji)
                 
             Text(album.name)
+                .customFont(.Body.medium)
                 .fullWidth(.leading)
             
             Text(albumStore.assetCount(for: album).formatted())
