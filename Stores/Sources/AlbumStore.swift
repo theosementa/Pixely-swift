@@ -16,6 +16,8 @@ public final class AlbumStore {
     
     public var albums: [AlbumModel] = []
     
+    let repo: AlbumRepository = .init()
+    
 }
 
 public extension AlbumStore {
@@ -40,6 +42,7 @@ public extension AlbumStore {
                 }
                 return model.toSubAlbum(parentId: parentId)
             }
+        
     }
     
 }
@@ -48,7 +51,7 @@ public extension AlbumStore {
     
     func fetchAll() {
         do {
-            let entities = try AlbumRepository.fetchAll()
+            let entities = try repo.fetchAll()
             
             self.albums = entities
                 .map { $0.toModel() }
@@ -71,7 +74,7 @@ public extension AlbumStore {
     
     func fetchOneAndUpdate(_ id: UUID) {
         do {
-            let album = try AlbumRepository.fetchOne(id: id)
+            let album = try repo.fetchOne(id: id)
             if let index = self.albums.firstIndex(where: { $0.id == id }) {
                 self.albums[index] = album.toModel()
             }
@@ -82,7 +85,7 @@ public extension AlbumStore {
     
     func create(body: AlbumBody) {
         do {
-            let album = try AlbumRepository.create(body: body)
+            let album = try repo.create(body: body)
             self.albums.append(album.toModel())
         } catch {
             
@@ -91,7 +94,7 @@ public extension AlbumStore {
     
     func update(body: AlbumBody, isNewParentAlbum: Bool = false) {
         do {
-            let updatedAlbum = try AlbumRepository.update(body: body, isNewParentAlbum: isNewParentAlbum)
+            let updatedAlbum = try repo.update(body: body, isNewParentAlbum: isNewParentAlbum)
             if let index = self.albums.firstIndex(where: { $0.id == updatedAlbum.id }) {
                 self.albums[index] = updatedAlbum.toModel()
             }
@@ -102,7 +105,7 @@ public extension AlbumStore {
     
     func delete(id: UUID) {
         do {
-            try AlbumRepository.delete(id: id)
+            try repo.delete(id: id)
             self.albums.removeAll { $0.id == id }
         } catch {
             
@@ -116,7 +119,7 @@ extension AlbumStore {
     
     public func assetCount(for album: any AlbumProtocol) -> Int {
         do {
-            return try AlbumRepository.fetchAssetCount(for: album)
+            return try repo.fetchAssetCount(for: album)
         } catch {
             return 0
         }

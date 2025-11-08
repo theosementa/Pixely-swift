@@ -17,6 +17,9 @@ public final class AssetDetailedStore {
     
     @ObservationIgnored
     @Dependency(\.albumStore) private var albumStore
+    
+    let repo: AssetDetailedRepository = .init()
+    let albumRepo: AlbumRepository = .init()
 }
 
 public extension AssetDetailedStore {
@@ -24,7 +27,7 @@ public extension AssetDetailedStore {
     @MainActor
     func fetchAll() {
         do {
-            let assets = try AssetDetailedRepository.fetchAll()
+            let assets = try repo.fetchAll()
             self.assets = assets
                 .map { $0.toModel() }
         } catch {
@@ -35,7 +38,7 @@ public extension AssetDetailedStore {
     @MainActor
     func create(_ body: AssetDetailledBody) {
         do {
-            let asset = try AssetDetailedRepository.create(body: body)
+            let asset = try repo.create(body: body)
             self.assets.append(asset.toModel())
             if let albumId = body.album?.id {
                 albumStore.fetchOneAndUpdate(albumId)
@@ -48,11 +51,11 @@ public extension AssetDetailedStore {
     @MainActor
     func updateAlbum(_ assetEntity: AssetDetailedEntity, newAlbumId: UUID) {
         do {
-            if let assetEntity = try AssetDetailedRepository.fetchOneEntity(phAssetId: assetEntity.assetId) {
-                let albumEntity = try AlbumRepository.fetchOne(id: newAlbumId)
+            if let assetEntity = try repo.fetchOneEntity(phAssetId: assetEntity.assetId) {
+                let albumEntity = try albumRepo.fetchOne(id: newAlbumId)
                 assetEntity.album = albumEntity
                 
-                try CoreDataStack.shared.viewContext.save()
+                try albumRepo.insert(albumEntity)
                 albumStore.fetchOneAndUpdate(newAlbumId)
                 
                 if let index = assets.firstIndex(where: { $0.assetId == assetEntity.assetId }) {
@@ -66,7 +69,7 @@ public extension AssetDetailedStore {
     
     func fetchOneEntity(phAssetId: String) -> AssetDetailedEntity? {
         do {
-            return try AssetDetailedRepository.fetchOneEntity(phAssetId: phAssetId)
+            return try repo.fetchOneEntity(phAssetId: phAssetId)
         } catch {
             return nil
         }

@@ -21,13 +21,18 @@ public struct AssetDetailScreen: View {
     // MARK: - View
     public var body: some View {
         VStack {
-            if viewModel.asset.playbackStyle == .image {
+            switch viewModel.asset.playbackStyle {
+            case .image:
                 PhotoView(asset: viewModel.asset)
-            } else {
-                Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+            case .video, .videoLooping:
+                VideoView(asset: viewModel.asset)
+            default:
+                EmptyView()
             }
+            
             Text(viewModel.detailedAsset?.album?.name ?? "no")
             Text(viewModel.detailedAsset?.software ?? "no")
+            Text(viewModel.detailedAsset?.playbackStyle.rawValue.formatted() ?? "no")
         }
         .overlay(alignment: .topTrailing) {
             Picker(selection: $viewModel.albumSelectedId) {

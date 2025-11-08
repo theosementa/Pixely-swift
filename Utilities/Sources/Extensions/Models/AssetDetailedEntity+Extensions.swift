@@ -7,6 +7,7 @@
 
 import Foundation
 import Models
+import Photos
 
 extension AssetDetailedEntity {
     
@@ -20,11 +21,12 @@ extension AssetDetailedEntity {
             dateTime: self.dateTime,
             latitude: self.latitude,
             longitude: self.longitude,
-            focal: Int(self.focal),
+            focal: self.focal,
             opening: self.opening,
-            fileSize: Int(self.fileSize),
-            pixelWidth: Int(self.pixelWidth),
-            pixelHeight: Int(self.pixelHeight)
+            fileSize: self.fileSize,
+            pixelWidth: self.pixelWidth,
+            pixelHeight: self.pixelHeight,
+            playbackStyle: PHAsset.PlaybackStyle(rawValue: Int(self.playbackStyleRawValue ?? 0)) ?? .unsupported
         )
     }
     

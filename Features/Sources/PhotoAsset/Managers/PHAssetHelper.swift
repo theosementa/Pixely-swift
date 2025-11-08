@@ -12,7 +12,7 @@ import Utilities
 final class PHAssetHelper {
     /// Récupère les détails complets d'un PHAsset de manière asynchrone
     static func detailed(for asset: PHAsset, completion: @escaping (PHAssetDetailedModel) -> Void) {
-        var detailedAsset = PHAssetDetailedModel()
+        var detailedAsset = PHAssetDetailedModel(playbackStyle: asset.playbackStyle)
         detailedAsset.assetId = asset.id
         
         let group = DispatchGroup()

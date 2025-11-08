@@ -49,3 +49,11 @@ extension AlbumDetailScreen.ViewModel {
     }
     
 }
+
+extension AlbumDetailScreen.ViewModel {
+    
+    var navigationTitle: String {
+        return (album?.emoji ?? "") + (album?.name ?? "")
+    }
+    
+}

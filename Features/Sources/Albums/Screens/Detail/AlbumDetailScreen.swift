@@ -27,8 +27,6 @@ public struct AlbumDetailScreen: View {
     public var body: some View {
         VStack {
             if let album = viewModel.album {
-                Text("Hello, World! \(viewModel.albumId)")
-                
                 if let subAlbums = album.subAlbums {
                     ForEach(subAlbums, id: \.self) { subAlbum in
                         NavigationButtonView(
@@ -41,11 +39,13 @@ public struct AlbumDetailScreen: View {
                     }
                 }
                 
-                NavigationButtonView(
-                    route: .push,
-                    destination: .album(.createSubAlbum(parentAlbum: album))
-                ) {
-                    Text("Create subAlbum")
+                if album.isParentAlbum {
+                    NavigationButtonView(
+                        route: .push,
+                        destination: .album(.createSubAlbum(parentAlbum: album))
+                    ) {
+                        Text("Create subAlbum")
+                    }
                 }
                 
                 Button {
@@ -64,6 +64,7 @@ public struct AlbumDetailScreen: View {
                 )
             }
         }
+        .navigationTitle(viewModel.navigationTitle)
         .onAppear {
             if let album = viewModel.album {
                 let subAlbums = viewModel.albumStore.fetchSubAlbums(for: album)

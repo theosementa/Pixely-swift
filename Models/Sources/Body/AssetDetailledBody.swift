@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import Photos
 
 public struct AssetDetailledBody: BodyProtocol {
     public var id: UUID?
@@ -29,6 +30,8 @@ public struct AssetDetailledBody: BodyProtocol {
     public var pixelWidth: Int? // PiwelWidth
     public var pixelHeight: Int? // PixelHeight
     
+    public var playbackStyleRawValue: Int
+    
     public init(
         id: UUID? = nil,
         assetId: String? = nil,
@@ -45,7 +48,8 @@ public struct AssetDetailledBody: BodyProtocol {
         opening: String? = nil,
         fileSize: Int? = nil,
         pixelWidth: Int? = nil,
-        pixelHeight: Int? = nil
+        pixelHeight: Int? = nil,
+        playbackStyleRawValue: Int
     ) {
         self.id = id
         self.assetId = assetId
@@ -62,31 +66,6 @@ public struct AssetDetailledBody: BodyProtocol {
         self.fileSize = fileSize
         self.pixelWidth = pixelWidth
         self.pixelHeight = pixelHeight
+        self.playbackStyleRawValue = playbackStyleRawValue
     }
-}
-
-public extension AssetDetailledBody {
-    
-    static func create(
-        assetId: String,
-        title: String? = nil,
-        albumId: UUID
-    ) -> AssetDetailledBody {
-        return .init(
-            assetId: assetId,
-            title: title,
-            albumId: albumId
-        )
-    }
-    
-    static func update(
-        id: UUID,
-        album: AlbumModel
-    ) -> AssetDetailledBody {
-        return .init(
-            id: id,
-            album: album
-        )
-    }
-    
 }

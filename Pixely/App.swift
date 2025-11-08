@@ -6,18 +6,14 @@
 //
 
 import SwiftUI
-import Persistence
 import Stores
 import Models
 
 @main
 struct PixelyApp: App {
-    let coreDataStack = CoreDataStack.shared
-
     var body: some Scene {
         WindowGroup {
             RootScreen()
-                .environment(\.managedObjectContext, coreDataStack.viewContext)
         }
     }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import Photos
 
 public struct PHAssetDetailedModel {
     public var album: AlbumModel?
@@ -27,6 +28,8 @@ public struct PHAssetDetailedModel {
     public var pixelWidth: Int? // PiwelWidth
     public var pixelHeight: Int? // PixelHeight
     
+    public var playbackStyle: PHAsset.PlaybackStyle
+    
     public init(
         album: AlbumModel? = nil,
         assetId: String? = nil,
@@ -40,7 +43,8 @@ public struct PHAssetDetailedModel {
         opening: String? = nil,
         fileSize: Int? = nil,
         pixelWidth: Int? = nil,
-        pixelHeight: Int? = nil
+        pixelHeight: Int? = nil,
+        playbackStyle: PHAsset.PlaybackStyle
     ) {
         self.album = album
         self.assetId = assetId
@@ -55,6 +59,7 @@ public struct PHAssetDetailedModel {
         self.fileSize = fileSize
         self.pixelWidth = pixelWidth
         self.pixelHeight = pixelHeight
+        self.playbackStyle = playbackStyle
     }
 }
 
@@ -102,7 +107,8 @@ extension PHAssetDetailedModel {
             opening: opening,
             fileSize: fileSize,
             pixelWidth: pixelWidth,
-            pixelHeight: pixelHeight
+            pixelHeight: pixelHeight,
+            playbackStyleRawValue: playbackStyle.rawValue
         )
     }
     
