@@ -9,30 +9,42 @@ import SwiftUI
 import Stores
 import Navigation
 import Dependencies
+import DesignSystem
 
 public struct AlbumsListScreen: View {
     
     @Dependency(\.albumStore) private var albumStore
     
+    @EnvironmentObject private var router: Router<AppDestination>
+    
     public init() { }
     
     // MARK: - View
     public var body: some View {
-        VStack(spacing: 16) {
-            NavigationButtonView(
-                route: .sheet,
-                destination: .album(.create)
+        ScrollView {
+            LazyVGrid(
+                columns: [GridItem(spacing: Spacing.standard), GridItem(spacing: Spacing.standard)],
+                spacing: Spacing.standard
             ) {
-                Text("Create album")
-            }
-            
-            List(albumStore.parentAlbums) { album in
-                NavigationButtonView(
-                    route: .push,
-                    destination: .album(.detail(albumId: album.id))
-                ) {
-                    AlbumRowView(album: album)
+                ForEach(albumStore.parentAlbums) { album in
+                    NavigationButtonView(
+                        route: .push,
+                        destination: .album(.detail(albumId: album.id))
+                    ) {
+                        AlbumRowView(album: album)
+                    }
                 }
+            }
+            .padding(Spacing.large)
+        }
+        .scrollIndicators(.hidden)
+        .fullSize(.top)
+        .background(Color.Background.bg50)
+        .navigationTitle("Albums")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("", systemImage: "plus") { router.present(route: .sheet, .album(.create)) }
+                    .buttonStyle(.borderedProminent)
             }
         }
     }

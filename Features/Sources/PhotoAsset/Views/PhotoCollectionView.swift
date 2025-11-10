@@ -218,3 +218,40 @@ public struct PhotoCollectionView: UIViewRepresentable {
         }
     }
 }
+
+public struct PhotoCollectionViewWithFrame: View {
+    let assets: [PHAsset]
+    let itemSpacing: CGFloat
+    let onAssetSelected: (PHAsset) -> Void
+    
+    public init(
+        assets: [PHAsset],
+        itemSpacing: CGFloat,
+        onAssetSelected: @escaping (PHAsset) -> Void
+    ) {
+        self.assets = assets
+        self.itemSpacing = itemSpacing
+        self.onAssetSelected = onAssetSelected
+    }
+    
+    public var body: some View {
+        PhotoCollectionView(
+            assets: assets,
+            itemSpacing: itemSpacing,
+            onAssetSelected: onAssetSelected
+        )
+        .frame(height: calculateHeight())
+    }
+    
+    private func calculateHeight() -> CGFloat {
+        let screenWidth = UIScreen.main.bounds.width
+        let totalSpacing = itemSpacing * 6
+        let itemWidth = (screenWidth - totalSpacing) / 5
+        
+        let numberOfRows = ceil(Double(assets.count) / 5.0)
+        let totalHeight = (itemWidth * CGFloat(numberOfRows)) +
+                         (itemSpacing * CGFloat(numberOfRows + 1))
+        
+        return totalHeight
+    }
+}

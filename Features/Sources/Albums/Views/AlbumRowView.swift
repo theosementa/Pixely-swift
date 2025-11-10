@@ -19,15 +19,23 @@ struct AlbumRowView: View {
     
     // MARK: - View
     var body: some View {
-        HStack(spacing: Spacing.small) {
+        VStack(alignment: .leading, spacing: Spacing.small) {
             Text(album.emoji)
+                .font(.system(size: 24))
                 
             Text(album.name)
                 .customFont(.Body.medium)
                 .fullWidth(.leading)
             
-            Text(albumStore.assetCount(for: album).formatted())
+//            Text(albumStore.assetCount(for: album).formatted())
         }
+        .padding()
+        .roundedRectangleBorder(
+            Color.Background.bg100,
+            radius: CornerRadius.large,
+            lineWidth: 1,
+            strokeColor: Color.Background.bg200
+        )
     }
 }
 

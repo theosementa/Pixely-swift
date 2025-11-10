@@ -10,6 +10,7 @@ import Stores
 import Dependencies
 import Navigation
 import PhotoAsset
+import DesignSystem
 
 public struct AlbumDetailScreen: View {
     
@@ -25,37 +26,26 @@ public struct AlbumDetailScreen: View {
     
     // MARK: - View
     public var body: some View {
-        VStack {
+        ScrollView {
             if let album = viewModel.album {
-                if let subAlbums = album.subAlbums {
-                    ForEach(subAlbums, id: \.self) { subAlbum in
-                        NavigationButtonView(
-                            route: .push,
-                            destination: .album(.detail(albumId: subAlbum.id))
-                        ) {
-                            AlbumRowView(album: subAlbum)
-                                .padding(8)
+                if let subAlbums = album.subAlbums, !subAlbums.isEmpty {
+                    LazyVGrid(
+                        columns: [GridItem(spacing: Spacing.standard), GridItem(spacing: Spacing.standard)],
+                        spacing: Spacing.standard
+                    ) {
+                        ForEach(subAlbums, id: \.self) { subAlbum in
+                            NavigationButtonView(
+                                route: .push,
+                                destination: .album(.detail(albumId: subAlbum.id))
+                            ) {
+                                AlbumRowView(album: subAlbum)
+                            }
                         }
                     }
+                    .padding(Spacing.large)
                 }
                 
-                if album.isParentAlbum {
-                    NavigationButtonView(
-                        route: .push,
-                        destination: .album(.createSubAlbum(parentAlbum: album))
-                    ) {
-                        Text("Create subAlbum")
-                    }
-                }
-                
-                Button {
-                    viewModel.albumStore.delete(id: viewModel.albumId)
-                    dismiss()
-                } label: {
-                    Text("Delete")
-                }
-                
-                PhotoCollectionView(
+                PhotoCollectionViewWithFrame(
                     assets: viewModel.assets,
                     itemSpacing: 2,
                     onAssetSelected: {
@@ -64,7 +54,30 @@ public struct AlbumDetailScreen: View {
                 )
             }
         }
+        .scrollIndicators(.hidden)
         .navigationTitle(viewModel.navigationTitle)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Menu {
+                    if let album = viewModel.album, album.isParentAlbum {
+                        Button {
+                            router.present(route: .sheet, .album(.createSubAlbum(parentAlbum: album)))
+                        } label: {
+                            Label("Add a subalbum", systemImage: "plus")
+                        }
+                    }
+
+                    Button(role: .destructive) {
+                        viewModel.albumStore.delete(id: viewModel.albumId)
+                        dismiss()
+                    } label: {
+                        Label("Delete", systemImage: "trash")
+                    }
+                } label: {
+                    Image(systemName: "gear")
+                }
+            }
+        }
         .onAppear {
             if let album = viewModel.album {
                 let subAlbums = viewModel.albumStore.fetchSubAlbums(for: album)
