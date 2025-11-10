@@ -15,6 +15,8 @@ public struct AddAlbumScreen: View {
     // MARK: States
     @State private var viewModel: ViewModel
     
+    @Environment(\.dismiss) private var dismiss
+    
     // MARK: Init
     public init(parentAlbum: AlbumModel? = nil, albumId: UUID? = nil) {
         self._viewModel = State(wrappedValue: .init(parentAlbum: parentAlbum, albumId: albumId))
@@ -22,35 +24,45 @@ public struct AddAlbumScreen: View {
     
     // MARK: - View
     public var body: some View {
-        VStack(spacing: Spacing.large) {
-            TextField("Album name", text: $viewModel.name)
-                .textFieldStyle(.roundedBorder)
-            
-            Button {
-                viewModel.isEmojiPickerPresented.toggle()
-            } label: {
-                Text(viewModel.emoji)
+        NavigationStack {
+            VStack(spacing: Spacing.large) {
+                Button {
+                    viewModel.isEmojiPickerPresented.toggle()
+                } label: {
+                    Text(viewModel.emoji)
+                        .font(.system(size: 48))
+                }
+                .emojiPicker(
+                    isPresented: $viewModel.isEmojiPickerPresented,
+                    selectedEmoji: $viewModel.emoji
+                )
+                
+                CustomTextFieldView(
+                    text: $viewModel.name,
+                    config: .init(
+                        title: "Nom de l'album",
+                        placeholder: "Vacances"
+                    )
+                )
+                
+                ColorPicker("Selected Color", selection: $viewModel.color)
+                    .labelsHidden()
+                
+                Spacer()
+                
+                ActionButtonView(title: "Create") {
+                    viewModel.createAlbum()
+                }
             }
-            .emojiPicker(
-                isPresented: $viewModel.isEmojiPickerPresented,
-                selectedEmoji: $viewModel.emoji
-            )
-            
-            ColorPicker("Selected Color", selection: $viewModel.color)
-            
-            Spacer()
-            
-            Button {
-                viewModel.createAlbum()
-            } label: {
-                Text("Create")
-                    .foregroundStyle(Color.white)
-                    .padding()
-                    .background(Color.blue, in: .rect(cornerRadius: CornerRadius.large, style: .continuous))
+            .fullSize()
+            .padding(Spacing.large)
+            .background(Color.Background.bg50.ignoresSafeArea())
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("", systemImage: "xmark") { dismiss() }
+                }
             }
-            .padding()
         }
-        .padding(Spacing.large)
     }
 }
 

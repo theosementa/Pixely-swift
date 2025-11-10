@@ -15,6 +15,8 @@ public struct Spacing {
     public static let small: CGFloat = 8
     /// `Value = 12`
     public static let medium: CGFloat = 12
+    /// `Value = 14`
+    public static let regular: CGFloat = 14
     /// `Value = 16`
     public static let standard: CGFloat = 16
     /// `Value = 24`

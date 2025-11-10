@@ -14,4 +14,8 @@ public extension View {
         return frame(maxWidth: .infinity, alignment: alignment)
     }
     
+    func fullSize(_ alignment: Alignment = .center) -> some View {
+        return frame(maxWidth: .infinity, maxHeight: .infinity, alignment: alignment)
+    }
+    
 }

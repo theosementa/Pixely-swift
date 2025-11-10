@@ -20,7 +20,7 @@ public struct AlbumsListScreen: View {
     public var body: some View {
         VStack(spacing: 16) {
             NavigationButtonView(
-                route: .push,
+                route: .sheet,
                 destination: .album(.create)
             ) {
                 Text("Create album")

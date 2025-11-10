@@ -22,4 +22,22 @@ extension View {
             .padding(.vertical, (font.lineHeight - uiFont.lineHeight) / 2)
     }
     
+    public func roundedRectangleBorder(
+        _ color: Color,
+        radius: CGFloat,
+        lineWidth: CGFloat? = nil,
+        strokeColor: Color? = nil
+    ) -> some View {
+        return self
+            .background {
+                RoundedRectangle(cornerRadius: radius, style: .continuous)
+                    .fill(color)
+                    .overlay {
+                        RoundedRectangle(cornerRadius: radius, style: .continuous)
+                            .stroke(strokeColor ?? Color.clear, lineWidth: lineWidth ?? 0)
+                    }
+            }
+            .clipShape(RoundedRectangle(cornerRadius: radius, style: .continuous))
+    }
+    
 }
