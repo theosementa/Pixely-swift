@@ -51,7 +51,7 @@ public struct AddAlbumScreen: View {
                 Spacer()
                 
                 ActionButtonView(title: "Create", config: .init(style: .classic)) {
-                    viewModel.createAlbum()
+                    viewModel.createAlbum(dismiss: dismiss)
                 }
             }
             .fullSize()

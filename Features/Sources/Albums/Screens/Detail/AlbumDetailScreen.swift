@@ -45,17 +45,22 @@ public struct AlbumDetailScreen: View {
                     .padding(Spacing.large)
                 }
                 
-                PhotoCollectionViewWithFrame(
-                    assets: viewModel.assets,
-                    itemSpacing: 2,
-                    onAssetSelected: {
-                        router.push(.gallery(.assetDetail(asset: $0)))
-                    }
-                )
+                if !viewModel.assets.isEmpty {
+                    PhotoCollectionViewWithFrame(
+                        assets: viewModel.assets,
+                        itemSpacing: 2,
+                        onAssetSelected: {
+                            router.push(.gallery(.assetDetail(asset: $0)))
+                        }
+                    )
+                }
             }
         }
         .scrollIndicators(.hidden)
+        .fullSize(.top)
         .navigationTitle(viewModel.navigationTitle)
+        .background(Color.Background.bg50)
+        .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Menu {

@@ -16,7 +16,8 @@ extension SubAlbumModel {
             id: id,
             name: name,
             emoji: emoji,
-            color: color
+            color: color,
+            isParentAlbum: false
         )
     }
     

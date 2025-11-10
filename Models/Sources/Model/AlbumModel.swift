@@ -13,6 +13,7 @@ public struct AlbumModel: AlbumProtocol, Sendable {
     public var name: String
     public var emoji: String
     public var color: Color
+    public var isParentAlbum: Bool
     public var subAlbumsIds: [String]?
     public var subAlbums: [SubAlbumModel]?
     
@@ -21,6 +22,7 @@ public struct AlbumModel: AlbumProtocol, Sendable {
         name: String,
         emoji: String,
         color: Color,
+        isParentAlbum: Bool,
         subAlbumsIds: [String]? = nil,
         subAlbums: [SubAlbumModel]? = nil
     ) {
@@ -28,18 +30,10 @@ public struct AlbumModel: AlbumProtocol, Sendable {
         self.name = name
         self.emoji = emoji
         self.color = color
+        self.isParentAlbum = isParentAlbum
         self.subAlbums = subAlbums
         self.subAlbumsIds = subAlbumsIds
     }
-}
-
-extension AlbumModel {
-    
-    public var isParentAlbum: Bool {
-        guard let subAlbumsIds else { return true }
-        return !subAlbumsIds.isEmpty
-    }
-    
 }
 
 public struct SubAlbumModel: AlbumProtocol, Sendable {
@@ -71,14 +65,16 @@ extension AlbumModel {
         id: UUID(),
         name: "Aucun album",
         emoji: "🐀",
-        color: .gray
+        color: .gray,
+        isParentAlbum: true
     )
     
     public static let mock: AlbumModel = .init(
         id: UUID(),
         name: "Mock album",
         emoji: "🐀",
-        color: .red
+        color: .red,
+        isParentAlbum: true
     )
     
 }

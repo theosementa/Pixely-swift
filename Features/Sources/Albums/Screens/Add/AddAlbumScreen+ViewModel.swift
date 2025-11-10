@@ -46,7 +46,7 @@ extension AddAlbumScreen.ViewModel {
 extension AddAlbumScreen.ViewModel {
     
     @MainActor
-    public func createAlbum() {
+    public func createAlbum(dismiss: DismissAction) {
         guard isBodyValid else { return }
         
         let body: AlbumBody = .create(
@@ -57,6 +57,7 @@ extension AddAlbumScreen.ViewModel {
         )
         
         albumStore.create(body: body)
+        dismiss()
     }
     
 }

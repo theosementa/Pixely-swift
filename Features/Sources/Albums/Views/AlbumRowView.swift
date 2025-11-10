@@ -21,10 +21,11 @@ struct AlbumRowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.small) {
             Text(album.emoji)
-                .font(.system(size: 24))
+                .font(.system(size: 28))
                 
             Text(album.name)
-                .customFont(.Body.medium)
+                .customFont(.Title.medium)
+                .foregroundStyle(Color.label)
                 .fullWidth(.leading)
             
 //            Text(albumStore.assetCount(for: album).formatted())

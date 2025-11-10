@@ -10,6 +10,10 @@ import SwiftUI
 
 public extension Color {
     
+    static var label: Color {
+        return Color("label", bundle: .module)
+    }
+    
     struct Background {
         public static var bg50: Color {
             return Color("background50", bundle: .module)

@@ -88,7 +88,7 @@ public extension AlbumStore {
             let album = try repo.create(body: body)
             self.albums.append(album.toModel())
         } catch {
-            
+            print("⚠️ \(error.localizedDescription)")
         }
     }
     
