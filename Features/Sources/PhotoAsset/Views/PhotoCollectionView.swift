@@ -61,6 +61,7 @@ public struct PhotoCollectionView: UIViewRepresentable {
         collectionView.dataSource = context.coordinator
         collectionView.prefetchDataSource = context.coordinator
         collectionView.contentInsetAdjustmentBehavior = .never // Prevent automatic content inset adjustments
+        collectionView.backgroundColor = UIColor(Color.Background.bg50)
         
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
         

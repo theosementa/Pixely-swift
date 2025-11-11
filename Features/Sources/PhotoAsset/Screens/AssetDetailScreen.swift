@@ -35,31 +35,6 @@ public struct AssetDetailScreen: View {
             default:
                 EmptyView()
             }
-            
-//            HStack(spacing: Spacing.small) {
-//                Button("", systemImage: viewModel.asset.isFavorite ? "heart.fill" : "heart") {
-//                    viewModel.setIsFavorite()
-//                }
-//                
-//                Spacer()
-//                
-//                if let assetDetailed = viewModel.detailedAsset {
-//                    NavigationButtonView(
-//                        route: .modalFitContent,
-//                        destination: .asset(.assetInfo(asset: assetDetailed))
-//                    ) {
-//                        Image(systemName: "info.circle")
-//                    }
-//                }
-//                
-//                Spacer()
-//                
-//                Button("", systemImage: "trash", role: .destructive) {
-//                    viewModel.deleteAsset(dismiss: dismiss)
-//                }
-//            }
-//            .padding(.horizontal, Spacing.large)
-//            .padding(.vertical, Spacing.extraSmall)
         }
         .fullSize()
         .background(Color.Background.bg50)

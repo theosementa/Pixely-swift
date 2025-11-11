@@ -25,9 +25,9 @@ public struct GalleryScreen: View {
                 router.push(.asset(.assetDetail(asset: $0)))
             }
         )
-        .ignoresSafeArea(edges: .bottom)
         .scrollIndicators(.hidden)
-        .scrollDismissesKeyboard(.interactively)
+        .background(Color.Background.bg50)
+        .ignoresSafeArea(edges: .bottom)
     }
 }
 

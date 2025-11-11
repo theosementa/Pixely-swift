@@ -19,6 +19,7 @@
 		D91EE9312EB7AB6000EE4CB0 /* Memories in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE9302EB7AB6000EE4CB0 /* Memories */; };
 		D91EE9332EB7AB6500EE4CB0 /* Settings in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE9322EB7AB6500EE4CB0 /* Settings */; };
 		D91EE93D2EB7C9D100EE4CB0 /* Utilities in Frameworks */ = {isa = PBXBuildFile; productRef = D91EE93C2EB7C9D100EE4CB0 /* Utilities */; };
+		D950AC7F2EC33739007B1157 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D950AC7E2EC33739007B1157 /* README.md */; };
 		D9E242E32EBE20D100B873F8 /* PhotoAsset in Frameworks */ = {isa = PBXBuildFile; productRef = D9E242E22EBE20D100B873F8 /* PhotoAsset */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		D91EE92D2EB796BA00EE4CB0 /* Navigation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Navigation; sourceTree = "<group>"; };
 		D91EE9362EB7ABB700EE4CB0 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
 		D91EE93B2EB7C98E00EE4CB0 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
+		D950AC7E2EC33739007B1157 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -106,6 +108,7 @@
 		D91EE6852EB6905400EE4CB0 = {
 			isa = PBXGroup;
 			children = (
+				D950AC7E2EC33739007B1157 /* README.md */,
 				D91EE9362EB7ABB700EE4CB0 /* Core */,
 				D91EE8992EB7946C00EE4CB0 /* DesignSystem */,
 				D91EE8942EB792B300EE4CB0 /* Features */,
@@ -245,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D91EE7572EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan in Resources */,
+				D950AC7F2EC33739007B1157 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

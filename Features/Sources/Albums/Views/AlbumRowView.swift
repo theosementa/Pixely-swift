@@ -21,7 +21,7 @@ struct AlbumRowView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: Spacing.small) {
             Text(album.emoji)
-                .font(.system(size: 28))
+                .font(.system(size: 20))
                 
             Text(album.name)
                 .customFont(.Title.medium)
