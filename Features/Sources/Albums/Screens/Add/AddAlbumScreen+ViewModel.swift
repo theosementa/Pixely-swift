@@ -18,7 +18,6 @@ extension AddAlbumScreen {
         
         var name: String = ""
         var emoji: String = "🤖"
-        var color: Color = .red
         var parentAlbum: AlbumModel?
         
         var isEmojiPickerPresented: Bool = false
@@ -52,7 +51,6 @@ extension AddAlbumScreen.ViewModel {
         let body: AlbumBody = .create(
             name: name,
             emoji: emoji,
-            colorHex: color.toHex() ?? "",
             parentAlbum: parentAlbum
         )
         

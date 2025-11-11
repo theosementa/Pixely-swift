@@ -52,10 +52,17 @@ public extension AssetDetailedStore {
     func updateAlbum(_ assetEntity: AssetDetailedEntity, newAlbumId: UUID) {
         do {
             if let assetEntity = try repo.fetchOneEntity(phAssetId: assetEntity.assetId) {
-                let albumEntity = try albumRepo.fetchOne(id: newAlbumId)
-                assetEntity.album = albumEntity
+                let albumEntity: AlbumEntity
+                do {
+                    albumEntity = try albumRepo.fetchOne(id: newAlbumId)
+                    assetEntity.album = albumEntity
+                } catch {
+                    if newAlbumId == AlbumModel.noAlbum.id {
+                        assetEntity.album = nil
+                    }
+                }
                 
-                try albumRepo.insert(albumEntity)
+                try repo.insert(assetEntity)
                 albumStore.fetchOneAndUpdate(newAlbumId)
                 
                 if let index = assets.firstIndex(where: { $0.assetId == assetEntity.assetId }) {

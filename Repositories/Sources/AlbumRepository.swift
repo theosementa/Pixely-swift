@@ -29,7 +29,6 @@ public final class AlbumRepository: GenericRepository<AlbumEntity> {
             id: UUID(),
             name: body.name ?? "",
             emoji: body.emoji,
-            colorHex: body.colorHex ?? "",
             isParentAlbum: body.parentAlbum == nil ? true : false,
             subAlbumsIds: [],
             notes: nil,
@@ -52,7 +51,6 @@ public final class AlbumRepository: GenericRepository<AlbumEntity> {
         let album = try fetchOne(id: albumId)
         album.name = body.name ?? ""
         album.emoji = body.emoji
-        album.colorHex = body.colorHex ?? ""
         if isNewParentAlbum {
             album.subAlbumsIds = []
             album.isParentAlbum = true

@@ -16,7 +16,6 @@ extension AlbumEntity {
             id: id,
             name: name,
             emoji: emoji ?? "",
-            color: Color(hex: colorHex),
             isParentAlbum: isParentAlbum,
             subAlbumsIds: subAlbumsIds
         )
@@ -27,7 +26,6 @@ extension AlbumEntity {
             id: id,
             name: name,
             emoji: emoji ?? "",
-            color: Color(hex: colorHex),
             parentAlbumId: parentId
         )
     }

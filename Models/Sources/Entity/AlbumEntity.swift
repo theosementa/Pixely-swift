@@ -17,8 +17,6 @@ public class AlbumEntity {
     public var name: String
     
     public var emoji: String?
-
-    public var colorHex: String
     
     public var isParentAlbum: Bool
     
@@ -33,7 +31,6 @@ public class AlbumEntity {
         id: UUID,
         name: String,
         emoji: String? = nil,
-        colorHex: String,
         isParentAlbum: Bool,
         subAlbumsIds: [String],
         notes: String? = nil,
@@ -42,7 +39,6 @@ public class AlbumEntity {
         self.id = id
         self.name = name
         self.emoji = emoji
-        self.colorHex = colorHex
         self.isParentAlbum = isParentAlbum
         self.subAlbumsIds = subAlbumsIds
         self.notes = notes

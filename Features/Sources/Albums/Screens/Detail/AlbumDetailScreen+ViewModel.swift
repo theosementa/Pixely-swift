@@ -45,7 +45,7 @@ extension AlbumDetailScreen.ViewModel {
     var assets: [PHAsset] {
         let assetsDetailed = assetDetailedStore.assets.filter { $0.album?.id == albumId }
         let assetsDetailedIds = assetsDetailed.map { $0.assetId }
-        return assetManager.photoAssetCollection.phAssets.filter { assetsDetailedIds.contains($0.id) }
+        return assetManager.photoAssetCollection.asArray.filter { assetsDetailedIds.contains($0.id) }
     }
     
 }

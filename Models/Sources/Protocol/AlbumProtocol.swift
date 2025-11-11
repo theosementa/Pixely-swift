@@ -12,5 +12,4 @@ public protocol AlbumProtocol: Identifiable, Hashable, Equatable {
     var id: UUID { get set }
     var name: String { get set }
     var emoji: String { get set }
-    var color: Color { get set }
 }

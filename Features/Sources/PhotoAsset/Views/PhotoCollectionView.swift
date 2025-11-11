@@ -23,6 +23,7 @@ public struct PhotoCollectionView: UIViewRepresentable {
         
     // MARK: Environments
     @Environment(AssetManager.self) private var assetManager
+//    @Dependency(\.assetManager) private var assetManager
     
     public init(
         assets: [PHAsset],

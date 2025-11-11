@@ -16,7 +16,6 @@ extension AlbumModel {
             id: id,
             name: name,
             emoji: emoji,
-            color: color,
             parentAlbumId: parentId
         )
     }

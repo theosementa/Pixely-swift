@@ -8,10 +8,11 @@
 import SwiftUI
 import PhotoAsset
 import Navigation
+import Dependencies
 
 public struct GalleryScreen: View {
     
-    @Environment(AssetManager.self) private var assetManager
+    @Dependency(\.assetManager) private var assetManager
     @EnvironmentObject private var router: Router<AppDestination>
     
     public init() { }
@@ -19,7 +20,7 @@ public struct GalleryScreen: View {
     // MARK: - View
     public var body: some View {
         PhotoCollectionView(
-            assets: assetManager.photoAssetCollection.phAssets,
+            assets: assetManager.hasAlbumsDisplayed ? assetManager.allAssets : assetManager.assetsWithoutAlbums,
             itemSpacing: 2,
             onAssetSelected: {
                 router.push(.asset(.assetDetail(asset: $0)))
@@ -28,6 +29,16 @@ public struct GalleryScreen: View {
         .scrollIndicators(.hidden)
         .background(Color.Background.bg50)
         .ignoresSafeArea(edges: .bottom)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                @Bindable var assetManager = assetManager
+                Picker("", selection: $assetManager.hasAlbumsDisplayed) {
+                    Text("All pictures").tag(true)
+                    Text("Without albums").tag(false)
+                }
+                .labelsHidden()
+            }
+        }
     }
 }
 

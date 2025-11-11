@@ -45,9 +45,6 @@ public struct AddAlbumScreen: View {
                     )
                 )
                 
-                ColorPicker("Selected Color", selection: $viewModel.color)
-                    .labelsHidden()
-                
                 Spacer()
                 
                 ActionButtonView(title: "Create", config: .init(style: .classic)) {

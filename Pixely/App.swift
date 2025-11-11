@@ -8,6 +8,7 @@
 import SwiftUI
 import Stores
 import Models
+import Observation
 
 @main
 struct PixelyApp: App {

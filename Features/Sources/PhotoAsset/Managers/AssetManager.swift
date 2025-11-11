@@ -12,67 +12,90 @@ import Dependencies
 @Observable
 public final class AssetManager: NSObject, @unchecked Sendable {
     
-    let photoLibrary = PHPhotoLibrary.shared()
-    
-    public var photoAssetCollection: AssetCollection = AssetCollection(PHFetchResult<PHAsset>())
+    private let photoLibrary = PHPhotoLibrary.shared()
     let cacheManager = CachedImageManager()
     
-    var isAuthorized: Bool = false
+    @ObservationIgnored
+    @Dependency(\.assetDetailedStore) private var assetDetailedStore
+    
+    public private(set) var photoAssetCollection: AssetCollection = AssetCollection(PHFetchResult<PHAsset>())
+    public private(set) var authorizationStatus: PHAuthorizationStatus = .notDetermined
+    
+    public var allAssets: [PHAsset] = []
+    public var assetsWithoutAlbums: [PHAsset] = []
+    
+    public var hasAlbumsDisplayed: Bool = true
+    
+    public var isAuthorized: Bool {
+           authorizationStatus == .authorized
+       }
     
     // MARK: Init
     public override init() {
         super.init()
-        guard checkAuthorization() else { return }
-        photoLibrary.register(self)
-        refreshPhotoAssets()
+        checkAuthorizationStatus()
+        
+        if isAuthorized {
+            setupPhotoLibraryObserver()
+            refreshPhotoAssets()
+        }
+    }
+    
+    deinit {
+        if isAuthorized {
+            photoLibrary.unregisterChangeObserver(self)
+        }
     }
 
 }
 
+// MARK: - Authorization
 extension AssetManager {
     
-    private func checkAuthorization() -> Bool {
-        switch PHPhotoLibrary.authorizationStatus(for: .readWrite) {
-        case .authorized:
-            self.isAuthorized = true
-            return true
-        case .notDetermined:
-            self.isAuthorized = false
-            return false
-        case .denied:
-            self.isAuthorized = false
-            return false
-        case .limited:
-            self.isAuthorized = false
-            return false
-        case .restricted:
-            self.isAuthorized = false
-            return false
-        @unknown default:
-            return false
-        }
+    private func checkAuthorizationStatus() {
+        authorizationStatus = PHPhotoLibrary.authorizationStatus(for: .readWrite)
     }
     
     public func askForAuthorization() {
-        PHPhotoLibrary.requestAuthorization(for: .readWrite) { _ in
-            
+        PHPhotoLibrary.requestAuthorization(for: .readWrite) { _ in }
+    }
+    
+    private func setupPhotoLibraryObserver() {
+        photoLibrary.register(self)
+    }
+    
+}
+
+// MARK: - Fetching Assets
+public extension AssetManager {
+    
+    private func refreshPhotoAssets() {
+        let fetchOptions = PHFetchOptions()
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        
+        let fetchResult = PHAsset.fetchAssets(with: fetchOptions)
+        photoAssetCollection = AssetCollection(fetchResult)
+        
+        Task { @MainActor in
+            allAssets = photoAssetCollection.asArray
+            refreshFilteredCollections()
         }
     }
     
 }
 
-extension AssetManager {
+public extension AssetManager {
     
-     // TODO: Voir si pas de lag
-    private func refreshPhotoAssets(_ fetchResult: PHFetchResult<PHAsset>? = nil) {
-        let newFetchResult = fetchResult ?? {
-            let fetchOptions = PHFetchOptions()
-            fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-            return PHAsset.fetchAssets(with: fetchOptions)
-        }()
-        
-        self.photoAssetCollection = AssetCollection(newFetchResult)
+    @MainActor
+    func refreshFilteredCollections() {
+        assetsWithoutAlbums = allAssets
+            .filter { assetDetailedStore.findOneBy($0.id)?.album == nil }
     }
+    
+}
+
+// MARK: - Asset Operations
+extension AssetManager {
     
     func setIsFavorite(for asset: PHAsset, _ isFavorite: Bool) async {
         if !asset.canPerform(.properties) {
@@ -199,13 +222,19 @@ extension AssetManager {
     
 }
 
-// MARK: - Observer
+// MARK: - Photo Library Observer
 extension AssetManager: PHPhotoLibraryChangeObserver {
     
-    // TODO: Voir si pas de lag
     public func photoLibraryDidChange(_ changeInstance: PHChange) {
-        guard let changes = changeInstance.changeDetails(for: self.photoAssetCollection.fetchResult) else { return }
-        self.refreshPhotoAssets(changes.fetchResultAfterChanges)
+        guard let changes = changeInstance.changeDetails(for: photoAssetCollection.fetchResult)
+        else { return }
+        
+        let newFetch = changes.fetchResultAfterChanges
+        
+        Task { @MainActor in
+            self.photoAssetCollection = .init(newFetch)
+            self.refreshPhotoAssets()
+        }
     }
     
 }

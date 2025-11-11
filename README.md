@@ -12,6 +12,7 @@ Pixely is an iOS app for managing photos, creating albums and sub-albums to orga
 - [ ] IA Classification (Apple Foundation Models?)
 - [ ] Memories system
 - [ ] Preferences
+- [ ] Localization
 - [ ] Tests
 - [ ] CI/CD
 
@@ -22,6 +23,12 @@ This app is built to illustrate how coding best apps with Swift and SwiftUI with
 
 <br>
 
+### Best practices
+- Swiftlint (Code linter)
+- Modular architecture
+
+<br>
+
 ## Contact
-- Twitter/X : @theosementa
+- Twitter/X : [@theosementa](https://x.com/theosementa)
 - Email : theosementa@gmail.com
