@@ -31,11 +31,30 @@ extension AlbumDetailScreen {
 
         init(albumId: UUID) {
             self.albumId = albumId
-            if let currentAlbum = albumStore.fetchOne(id: albumId) {
-                self.album = currentAlbum
-            }
         }
         
+    }
+    
+}
+
+extension AlbumDetailScreen.ViewModel {
+    
+    func fetchAlbumWithSubAlbums() {
+        fetchAlbum()
+        fetchSubAlbums()
+    }
+    
+    func fetchAlbum() {
+        if let currentAlbum = albumStore.fetchOne(id: albumId) {
+            self.album = currentAlbum
+        }
+    }
+    
+    func fetchSubAlbums() {
+        if let album {
+            let subAlbums = albumStore.fetchSubAlbums(for: album)
+            self.album?.subAlbums = subAlbums
+        }
     }
     
 }

@@ -30,7 +30,7 @@ public struct AlbumDetailScreen: View {
             if let album = viewModel.album {
                 if let subAlbums = album.subAlbums, !subAlbums.isEmpty {
                     LazyVGrid(
-                        columns: [GridItem(spacing: Spacing.standard), GridItem(spacing: Spacing.standard)],
+                        columns: [GridItem(spacing: Spacing.medium), GridItem(spacing: Spacing.medium)],
                         spacing: Spacing.standard
                     ) {
                         ForEach(subAlbums, id: \.self) { subAlbum in
@@ -43,6 +43,7 @@ public struct AlbumDetailScreen: View {
                         }
                     }
                     .padding(Spacing.large)
+                    .animation(.smooth, value: album.subAlbums?.count)
                 }
                 
                 if !viewModel.assets.isEmpty {
@@ -66,7 +67,9 @@ public struct AlbumDetailScreen: View {
                 Menu {
                     if let album = viewModel.album, album.isParentAlbum {
                         Button {
-                            router.present(route: .sheet, .album(.createSubAlbum(parentAlbum: album)))
+                            router.present(route: .sheet, .album(.createSubAlbum(parentAlbum: album))) {
+                                viewModel.fetchAlbumWithSubAlbums()
+                            }
                         } label: {
                             Label("Add a subalbum", systemImage: "plus")
                         }
@@ -84,10 +87,7 @@ public struct AlbumDetailScreen: View {
             }
         }
         .onAppear {
-            if let album = viewModel.album {
-                let subAlbums = viewModel.albumStore.fetchSubAlbums(for: album)
-                viewModel.album?.subAlbums = subAlbums
-            }
+            viewModel.fetchAlbumWithSubAlbums()
         }
     }
 }

@@ -23,7 +23,7 @@ public struct AlbumsListScreen: View {
     public var body: some View {
         ScrollView {
             LazyVGrid(
-                columns: [GridItem(spacing: Spacing.standard), GridItem(spacing: Spacing.standard)],
+                columns: [GridItem(spacing: Spacing.medium), GridItem(spacing: Spacing.medium)],
                 spacing: Spacing.standard
             ) {
                 ForEach(albumStore.parentAlbums) { album in

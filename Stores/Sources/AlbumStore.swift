@@ -87,6 +87,9 @@ public extension AlbumStore {
         do {
             let album = try repo.create(body: body)
             self.albums.append(album.toModel())
+            if let parentAlbum = body.parentAlbum {
+                fetchOneAndUpdate(parentAlbum.id)
+            }
         } catch {
             print("⚠️ \(error.localizedDescription)")
         }
