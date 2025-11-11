@@ -22,7 +22,7 @@ public struct GalleryScreen: View {
             assets: assetManager.photoAssetCollection.phAssets,
             itemSpacing: 2,
             onAssetSelected: {
-                router.push(.gallery(.assetDetail(asset: $0)))
+                router.push(.asset(.assetDetail(asset: $0)))
             }
         )
         .ignoresSafeArea(edges: .bottom)

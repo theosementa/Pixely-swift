@@ -50,7 +50,7 @@ public struct AlbumDetailScreen: View {
                         assets: viewModel.assets,
                         itemSpacing: 2,
                         onAssetSelected: {
-                            router.push(.gallery(.assetDetail(asset: $0)))
+                            router.push(.asset(.assetDetail(asset: $0)))
                         }
                     )
                 }

@@ -11,4 +11,5 @@ import NavigationKit
 public enum AppDestination: AppDestinationProtocol {
     case album(AlbumDestination)
     case gallery(GalleryDestination)
+    case asset(AssetDestination)
 }

@@ -22,6 +22,8 @@ extension AppDestination {
             albumView(for: albumDestination)
         case .gallery(let galeryDestination):
             galleryView(for: galeryDestination)
+        case .asset(let assetDestination):
+            assetView(for: assetDestination)
         }
     }
     
@@ -50,8 +52,16 @@ extension AppDestination {
         switch destination {
         case .gallery:
             GalleryScreen()
+        }
+    }
+    
+    @ViewBuilder
+    private static func assetView(for destination: AssetDestination) -> some View {
+        switch destination {
         case .assetDetail(let asset):
             AssetDetailScreen(asset: asset)
+        case .assetInfo(let asset):
+            AssetInfoScreen(asset: asset)
         }
     }
     

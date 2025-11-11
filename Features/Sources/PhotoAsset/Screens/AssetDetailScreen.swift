@@ -9,11 +9,17 @@ import SwiftUI
 import Photos
 import Dependencies
 import Models
+import DesignSystem
+import Navigation
 
 public struct AssetDetailScreen: View {
         
     @State private var viewModel: ViewModel
     
+    @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var router: Router<AppDestination>
+        
+    // MARK: Init
     public init(asset: PHAsset) {
         self._viewModel = State(wrappedValue: .init(asset: asset))
     }
@@ -30,33 +36,83 @@ public struct AssetDetailScreen: View {
                 EmptyView()
             }
             
-            Text(viewModel.detailedAsset?.album?.name ?? "no")
-            Text(viewModel.detailedAsset?.software ?? "no")
-            Text(viewModel.detailedAsset?.playbackStyle.rawValue.formatted() ?? "no")
+//            HStack(spacing: Spacing.small) {
+//                Button("", systemImage: viewModel.asset.isFavorite ? "heart.fill" : "heart") {
+//                    viewModel.setIsFavorite()
+//                }
+//                
+//                Spacer()
+//                
+//                if let assetDetailed = viewModel.detailedAsset {
+//                    NavigationButtonView(
+//                        route: .modalFitContent,
+//                        destination: .asset(.assetInfo(asset: assetDetailed))
+//                    ) {
+//                        Image(systemName: "info.circle")
+//                    }
+//                }
+//                
+//                Spacer()
+//                
+//                Button("", systemImage: "trash", role: .destructive) {
+//                    viewModel.deleteAsset(dismiss: dismiss)
+//                }
+//            }
+//            .padding(.horizontal, Spacing.large)
+//            .padding(.vertical, Spacing.extraSmall)
         }
-        .overlay(alignment: .topTrailing) {
-            Picker(selection: $viewModel.albumSelectedId) {
-                Section {
-                    ForEach(viewModel.parentAlbumsSelectable) { album in
-                        Text(album.name).tag(album.id)
+        .fullSize()
+        .background(Color.Background.bg50)
+        .toolbar(.hidden, for: .tabBar)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Picker(selection: $viewModel.albumSelectedId) {
+                    Section {
+                        ForEach(viewModel.parentAlbumsSelectable) { album in
+                            Text(album.name).tag(album.id)
+                        }
+                    } header: {
+                        Text("Albums")
                     }
-                } header: {
-                    Text("Albums")
-                }
 
-                Section {
-                    ForEach(viewModel.subAlbumsSelectable) { subAlbum in
-                        Text(subAlbum.name).tag(subAlbum.id)
+                    Section {
+                        ForEach(viewModel.subAlbumsSelectable) { subAlbum in
+                            Text(subAlbum.name).tag(subAlbum.id)
+                        }
+                    } header: {
+                        Text("Subalbums")
                     }
-                } header: {
-                    Text("Subalbums")
+                } label: {
+                    HStack(spacing: Spacing.small) {
+                        Image(systemName: "chevron.up.chevron.down")
+                        Text(viewModel.albumSelected?.name ?? "")
+                    }
                 }
-            } label: {
-                Text(viewModel.albumSelected?.name ?? "")
+                .labelsHidden()
+                .onChange(of: viewModel.albumSelectedId) { _, newValue in
+                    viewModel.onSelectNewAlbum(newValue)
+                }
             }
-            .padding()
-            .onChange(of: viewModel.albumSelectedId) { _, newValue in
-                viewModel.onSelectNewAlbum(newValue)
+            
+            ToolbarItemGroup(placement: .bottomBar) {
+                Button("", systemImage: viewModel.asset.isFavorite ? "heart.fill" : "heart") {
+                    viewModel.setIsFavorite()
+                }
+                .labelsHidden()
+                
+                Spacer()
+                
+                Button("", systemImage: "info.circle") {
+                    router.present(route: .modalFitContent, .asset(.assetInfo(asset: viewModel.detailedAsset)))
+                }
+                .labelsHidden()
+                
+                Spacer()
+                
+                Button("", systemImage: "trash", role: .destructive) {
+                    viewModel.deleteAsset(dismiss: dismiss)
+                }
+                .labelsHidden()
             }
         }
         .onAppear {

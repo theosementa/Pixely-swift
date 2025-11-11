@@ -10,6 +10,7 @@ import Stores
 import Dependencies
 import Photos
 import Models
+import SwiftUI
 
 extension AssetDetailScreen {
     
@@ -28,6 +29,9 @@ extension AssetDetailScreen {
         
         @ObservationIgnored
         @Dependency(\.assetDetailedStore) private var assetDetailedStore
+        
+        @ObservationIgnored
+        @Dependency(\.assetManager) private var assetManager
         
         init(asset: PHAsset) {
             self.asset = asset
@@ -59,6 +63,19 @@ extension AssetDetailScreen.ViewModel {
 
 // MARK: - Public functions
 extension AssetDetailScreen.ViewModel {
+    
+    func deleteAsset(dismiss: DismissAction) {
+        Task {
+            await assetManager.deleteAsset(asset)
+            dismiss()
+        }
+    }
+    
+    func setIsFavorite() {
+        Task {
+            await assetManager.setIsFavorite(for: asset, !asset.isFavorite)
+        }
+    }
     
     func onSelectNewAlbum(_ newAlbumId: UUID) {
         if let assetEntity {

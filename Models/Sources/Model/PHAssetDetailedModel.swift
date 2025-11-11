@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 import Photos
 
-public struct PHAssetDetailedModel {
+public struct PHAssetDetailedModel: Equatable, Hashable {
     public var album: AlbumModel?
     public var assetId: String? // AssetId
 
@@ -78,9 +78,11 @@ public extension PHAssetDetailedModel {
         return "\(pixelWidth) x \(pixelHeight)"
     }
     
-    var date: Date {
-//        return dateTime?.exifToDate() ?? .now // TODO: Reactive
-        return .now
+    var date: Date? {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy:MM:dd HH:mm:ss"
+        formatter.timeZone = .current
+        return formatter.date(from: dateTime ?? "")
     }
     
     var coordinates: CLLocationCoordinate2D? {

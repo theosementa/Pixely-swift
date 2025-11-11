@@ -74,10 +74,9 @@ extension AssetManager {
         self.photoAssetCollection = AssetCollection(newFetchResult)
     }
     
-    func setIsFavorite(for asset: PHAsset, _ isFavorite: Bool) async throws {
+    func setIsFavorite(for asset: PHAsset, _ isFavorite: Bool) async {
         if !asset.canPerform(.properties) {
             print("not able to edit asset property")
-            throw AssetError.failed
         }
         
         do {
@@ -87,7 +86,6 @@ extension AssetManager {
             }
         } catch {
             print("Failed to change isFavorite: \(error.localizedDescription)")
-            throw AssetError.failed
         }
     }
     
@@ -118,10 +116,9 @@ extension AssetManager {
         }
     }
     
-    func deleteAsset(_ asset: PHAsset) async throws {
+    func deleteAsset(_ asset: PHAsset) async {
         if !asset.canPerform(.delete) {
             print("not able to delete asset")
-            throw AssetError.failed
         }
         
         do {
@@ -131,7 +128,6 @@ extension AssetManager {
             print("PhotoAsset asset deleted")
         } catch {
             print("Failed to delete photo: \(error.localizedDescription)")
-            throw AssetError.failed
         }
     }
     
