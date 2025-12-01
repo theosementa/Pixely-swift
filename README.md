@@ -11,8 +11,10 @@ Pixely is an iOS app for managing photos, creating albums and sub-albums to orga
 - [ ] Filters
 - [ ] IA Classification (Apple Foundation Models?)
 - [ ] Memories system
+- [ ] Multi selection
 - [ ] Preferences
 - [ ] Localization
+- [ ] Beautiful app icons
 - [ ] Tests
 - [ ] CI/CD
 

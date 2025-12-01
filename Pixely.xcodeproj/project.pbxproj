@@ -37,15 +37,6 @@
 		D91EE68E2EB6905400EE4CB0 /* Pixely.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pixely.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91EE6A22EB6905500EE4CB0 /* PixelyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PixelyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = PixelyTestPlan.xctestplan; sourceTree = "<group>"; };
-		D91EE7592EB73A3100EE4CB0 /* Persistence */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Persistence; sourceTree = "<group>"; };
-		D91EE7EE2EB73C0300EE4CB0 /* Models */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Models; sourceTree = "<group>"; };
-		D91EE88E2EB763C700EE4CB0 /* Repositories */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Repositories; sourceTree = "<group>"; };
-		D91EE8912EB7772900EE4CB0 /* Stores */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Stores; sourceTree = "<group>"; };
-		D91EE8942EB792B300EE4CB0 /* Features */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Features; sourceTree = "<group>"; };
-		D91EE8992EB7946C00EE4CB0 /* DesignSystem */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = DesignSystem; sourceTree = "<group>"; };
-		D91EE92D2EB796BA00EE4CB0 /* Navigation */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Navigation; sourceTree = "<group>"; };
-		D91EE9362EB7ABB700EE4CB0 /* Core */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Core; sourceTree = "<group>"; };
-		D91EE93B2EB7C98E00EE4CB0 /* Utilities */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utilities; sourceTree = "<group>"; };
 		D950AC7E2EC33739007B1157 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,6 +62,11 @@
 		D91EE6A52EB6905500EE4CB0 /* PixelyTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = PixelyTests;
+			sourceTree = "<group>";
+		};
+		D921139F2EDE213100A71FD4 /* Modules */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -109,16 +105,8 @@
 			isa = PBXGroup;
 			children = (
 				D950AC7E2EC33739007B1157 /* README.md */,
-				D91EE9362EB7ABB700EE4CB0 /* Core */,
-				D91EE8992EB7946C00EE4CB0 /* DesignSystem */,
-				D91EE8942EB792B300EE4CB0 /* Features */,
-				D91EE7EE2EB73C0300EE4CB0 /* Models */,
-				D91EE92D2EB796BA00EE4CB0 /* Navigation */,
-				D91EE7592EB73A3100EE4CB0 /* Persistence */,
-				D91EE88E2EB763C700EE4CB0 /* Repositories */,
-				D91EE8912EB7772900EE4CB0 /* Stores */,
-				D91EE93B2EB7C98E00EE4CB0 /* Utilities */,
 				D91EE7562EB6A40100EE4CB0 /* PixelyTestPlan.xctestplan */,
+				D921139F2EDE213100A71FD4 /* Modules */,
 				D91EE6902EB6905400EE4CB0 /* Pixely */,
 				D91EE6A52EB6905500EE4CB0 /* PixelyTests */,
 				D91EE75A2EB73B8800EE4CB0 /* Frameworks */,
