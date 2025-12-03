@@ -49,6 +49,7 @@ public struct AlbumDetailScreen: View {
                 if !viewModel.assets.isEmpty {
                     PhotoCollectionViewWithFrame(
                         assets: viewModel.assets,
+                        assetsSelected: [],
                         itemSpacing: 2,
                         onAssetSelected: {
                             router.push(.asset(.assetDetail(asset: $0)))

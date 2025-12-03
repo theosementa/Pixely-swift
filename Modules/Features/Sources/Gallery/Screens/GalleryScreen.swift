@@ -9,37 +9,68 @@ import SwiftUI
 import PhotoAsset
 import Navigation
 import Dependencies
+import DesignSystem
 
 public struct GalleryScreen: View {
     
     @Dependency(\.assetManager) private var assetManager
-    @EnvironmentObject private var router: Router<AppDestination>
+    
+    @State private var viewModel: ViewModel = .init()
     
     public init() { }
     
     // MARK: - View
     public var body: some View {
-        PhotoCollectionView(
-            assets: assetManager.hasAlbumsDisplayed ? assetManager.allAssets : assetManager.assetsWithoutAlbums,
-            itemSpacing: 2,
-            onAssetSelected: {
-                router.push(.asset(.assetDetail(asset: $0)))
-            }
+        AssetsListView(
+            assets: viewModel.hasAlbumsDisplayed ? assetManager.allAssets : assetManager.assetsWithoutAlbums,
+            assetsSelected: $viewModel.currentAssetsSelected,
+            isSelectModeEnabled: viewModel.isSelectModeEnabled
         )
         .scrollIndicators(.hidden)
         .background(Color.Background.bg50)
+        .toolbar(viewModel.isSelectModeEnabled ? .hidden : .automatic, for: .tabBar)
+        .overlay(alignment: .bottom) {
+            if viewModel.isSelectModeEnabled {
+                MultiSelectionView(
+                    currentAlbumIdSelected: $viewModel.currentAlbumIdSelected,
+                    currentAssetsSelected: $viewModel.currentAssetsSelected
+                )
+                .padding(4)
+            }
+        }
         .ignoresSafeArea(edges: .bottom)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                @Bindable var assetManager = assetManager
-                Picker("", selection: $assetManager.hasAlbumsDisplayed) {
-                    Text("All pictures").tag(true)
-                    Text("Without albums").tag(false)
-                }
-                .labelsHidden()
+            ToolbarItem(placement: .topBarLeading) { filterAssetsPickerView }
+            ToolbarItem(placement: .topBarTrailing) { multiSelectionButtonView }
+        }
+    }
+}
+
+// MARK: - Subviews
+extension GalleryScreen {
+    
+    @ViewBuilder
+    var filterAssetsPickerView: some View {
+        @Bindable var assetManager = assetManager
+        Picker("", selection: $viewModel.hasAlbumsDisplayed) {
+            Text("All pictures").tag(true)
+            Text("Without albums").tag(false)
+        }
+        .labelsHidden()
+    }
+    
+    var multiSelectionButtonView: some View {
+        Button {
+            viewModel.isSelectModeEnabled.toggle()
+        } label: {
+            if viewModel.isSelectModeEnabled {
+                Image(systemName: "xmark")
+            } else {
+                Text("Select")
             }
         }
     }
+    
 }
 
 // MARK: - Preview

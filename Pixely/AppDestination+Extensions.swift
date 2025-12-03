@@ -44,6 +44,8 @@ extension AppDestination {
             AddAlbumScreen(albumId: albumId)
         case .detail(let albumId):
             AlbumDetailScreen(albumId: albumId)
+        case .selectAlbum(let albumSelectedId):
+            SelectAlbumScreen(albumSelectedId: albumSelectedId)
         }
     }
     

@@ -16,22 +16,27 @@ public struct PhotoCollectionView: UIViewRepresentable {
     
     // MARK: Dependencies
     var assets: [PHAsset]
+    var assetsSelected: [PHAsset]
     var itemSpacing: CGFloat
+    var isSelectModeEnabled: Bool
     var onAssetSelected: (PHAsset) -> Void
     var headerHeight: CGFloat = 0
     var footerHeight: CGFloat = 0
         
     // MARK: Environments
     @Environment(AssetManager.self) private var assetManager
-//    @Dependency(\.assetManager) private var assetManager
     
     public init(
         assets: [PHAsset],
+        assetsSelected: [PHAsset] = [],
         itemSpacing: CGFloat,
+        isSelectModeEnabled: Bool,
         onAssetSelected: @escaping (PHAsset) -> Void
     ) {
         self.assets = assets
+        self.assetsSelected = assetsSelected
         self.itemSpacing = itemSpacing
+        self.isSelectModeEnabled = isSelectModeEnabled
         self.onAssetSelected = onAssetSelected
         self.headerHeight = 0
         self.footerHeight = 0
@@ -107,7 +112,11 @@ public struct PhotoCollectionView: UIViewRepresentable {
         
         private var imageRequestIDs: [IndexPath: PHImageRequestID] = [:]
         
-        init(_ parent: PhotoCollectionView, cacheManager: PHCachingImageManager, onAssetSelected: @escaping (PHAsset) -> Void) {
+        init(
+            _ parent: PhotoCollectionView,
+            cacheManager: PHCachingImageManager,
+            onAssetSelected: @escaping (PHAsset) -> Void
+        ) {
             self.parent = parent
             self.cacheManager = cacheManager
             self.onAssetSelected = onAssetSelected
@@ -122,11 +131,17 @@ public struct PhotoCollectionView: UIViewRepresentable {
         }
         
         // MARK: UICollectionViewDataSource
-        public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        public func collectionView(
+            _ collectionView: UICollectionView,
+            numberOfItemsInSection section: Int
+        ) -> Int {
             return assets.count
         }
         
-        public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        public func collectionView(
+            _ collectionView: UICollectionView,
+            cellForItemAt indexPath: IndexPath
+        ) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath) as? PhotoCollectionViewCell else {
                 return UICollectionViewCell()
             }
@@ -150,10 +165,12 @@ public struct PhotoCollectionView: UIViewRepresentable {
             let requestID = cell.configure(
                 with: asset,
                 assetDetailed: assetDetailedStore.findOneBy(asset.id),
+                isSelected: parent.isAssetSelected(asset),
                 targetSize: itemSize.multiplying(by: 3.5),
                 cacheManager: cacheManager,
                 options: imageRequestOptions
             )
+            
             if let requestID = requestID {
                 imageRequestIDs[indexPath] = requestID
             }
@@ -162,7 +179,10 @@ public struct PhotoCollectionView: UIViewRepresentable {
         }
         
         // MARK: UICollectionViewDelegate
-        public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        public func collectionView(
+            _ collectionView: UICollectionView,
+            didSelectItemAt indexPath: IndexPath
+        ) {
             guard indexPath.item < assets.count else { return }
             
             DispatchQueue.main.async { [weak self] in
@@ -172,7 +192,11 @@ public struct PhotoCollectionView: UIViewRepresentable {
             }
         }
         
-        public func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        public func collectionView(
+            _ collectionView: UICollectionView,
+            didEndDisplaying cell: UICollectionViewCell,
+            forItemAt indexPath: IndexPath
+        ) {
             if let requestID = imageRequestIDs[indexPath] {
                 cacheManager.cancelImageRequest(requestID)
                 imageRequestIDs.removeValue(forKey: indexPath)
@@ -187,7 +211,10 @@ public struct PhotoCollectionView: UIViewRepresentable {
         }
         
         // MARK: UICollectionViewDataSourcePrefetching
-        public func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        public func collectionView(
+            _ collectionView: UICollectionView,
+            prefetchItemsAt indexPaths: [IndexPath]
+        ) {
             let prefetchIndexPaths = indexPaths.prefix(10)
             let assets = prefetchIndexPaths.compactMap { indexPath -> PHAsset? in
                 guard indexPath.item < self.assets.count else { return nil }
@@ -200,7 +227,10 @@ public struct PhotoCollectionView: UIViewRepresentable {
             cacheManager.startCachingImages(for: assets, targetSize: itemSize, contentMode: .aspectFill, options: imageRequestOptions)
         }
         
-        public func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        public func collectionView(
+            _ collectionView: UICollectionView,
+            cancelPrefetchingForItemsAt indexPaths: [IndexPath]
+        ) {
             let assets = indexPaths.compactMap { indexPath -> PHAsset? in
                 guard indexPath.item < self.assets.count else { return nil }
                 return self.assets[indexPath.item]
@@ -221,25 +251,41 @@ public struct PhotoCollectionView: UIViewRepresentable {
     }
 }
 
+extension PhotoCollectionView {
+    
+    func isAssetSelected(_ asset: PHAsset) -> Bool {
+        return assetsSelected.contains(where: { $0.id == asset.id })
+    }
+    
+}
+
 public struct PhotoCollectionViewWithFrame: View {
     let assets: [PHAsset]
+    let assetsSelected: [PHAsset]
     let itemSpacing: CGFloat
+    var isSelectModeEnabled: Bool
     let onAssetSelected: (PHAsset) -> Void
     
     public init(
         assets: [PHAsset],
+        assetsSelected: [PHAsset],
         itemSpacing: CGFloat,
+        isSelectModeEnabled: Bool = false,
         onAssetSelected: @escaping (PHAsset) -> Void
     ) {
         self.assets = assets
+        self.assetsSelected = assetsSelected
         self.itemSpacing = itemSpacing
+        self.isSelectModeEnabled = isSelectModeEnabled
         self.onAssetSelected = onAssetSelected
     }
     
     public var body: some View {
         PhotoCollectionView(
             assets: assets,
+            assetsSelected: assetsSelected,
             itemSpacing: itemSpacing,
+            isSelectModeEnabled: isSelectModeEnabled,
             onAssetSelected: onAssetSelected
         )
         .frame(height: calculateHeight())

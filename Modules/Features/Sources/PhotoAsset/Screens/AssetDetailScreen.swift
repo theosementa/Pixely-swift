@@ -41,29 +41,14 @@ public struct AssetDetailScreen: View {
         .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Picker(selection: $viewModel.albumSelectedId) {
-                    Section {
-                        ForEach(viewModel.parentAlbumsSelectable) { album in
-                            Text(album.name).tag(album.id)
-                        }
-                    } header: {
-                        Text("Albums")
-                    }
-
-                    Section {
-                        ForEach(viewModel.subAlbumsSelectable) { subAlbum in
-                            Text(subAlbum.name).tag(subAlbum.id)
-                        }
-                    } header: {
-                        Text("Subalbums")
-                    }
+                Button {
+                    router.push(.album(.selectAlbum(albumSelectedId: $viewModel.albumSelectedId)))
                 } label: {
                     HStack(spacing: Spacing.small) {
                         Image(systemName: "chevron.up.chevron.down")
                         Text(viewModel.albumSelected?.name ?? "")
                     }
                 }
-                .labelsHidden()
                 .onChange(of: viewModel.albumSelectedId) { _, newValue in
                     viewModel.onSelectNewAlbum(newValue)
                 }
@@ -90,13 +75,12 @@ public struct AssetDetailScreen: View {
                 .labelsHidden()
             }
         }
-        .onAppear {
+        .task {
             viewModel.loadEntity()
             
             if self.viewModel.detailedAsset == nil {
-                PHAssetHelper.detailed(for: viewModel.asset) { detailedAsset in
-                    self.viewModel.detailedAsset = detailedAsset
-                }
+                let detailedAsset = await PHAssetHelper.detailed(for: viewModel.asset)
+                self.viewModel.detailedAsset = detailedAsset
             }
         }
     }

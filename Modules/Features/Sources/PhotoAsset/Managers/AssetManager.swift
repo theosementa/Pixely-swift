@@ -22,9 +22,6 @@ public final class AssetManager: NSObject, @unchecked Sendable {
     public private(set) var authorizationStatus: PHAuthorizationStatus = .notDetermined
     
     public var allAssets: [PHAsset] = []
-    public var assetsWithoutAlbums: [PHAsset] = []
-    
-    public var hasAlbumsDisplayed: Bool = true
     
     public var isAuthorized: Bool {
            authorizationStatus == .authorized
@@ -78,7 +75,6 @@ public extension AssetManager {
         
         Task { @MainActor in
             allAssets = photoAssetCollection.asArray
-            refreshFilteredCollections()
         }
     }
     
@@ -87,8 +83,8 @@ public extension AssetManager {
 public extension AssetManager {
     
     @MainActor
-    func refreshFilteredCollections() {
-        assetsWithoutAlbums = allAssets
+    var assetsWithoutAlbums: [PHAsset] {
+        allAssets
             .filter { assetDetailedStore.findOneBy($0.id)?.album == nil }
     }
     
