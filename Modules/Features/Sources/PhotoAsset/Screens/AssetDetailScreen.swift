@@ -38,7 +38,6 @@ public struct AssetDetailScreen: View {
         }
         .fullSize()
         .background(Color.Background.bg50)
-        .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Picker(selection: $viewModel.albumSelectedId) {
@@ -90,13 +89,13 @@ public struct AssetDetailScreen: View {
                 .labelsHidden()
             }
         }
-        .onAppear {
+        .toolbar(.hidden, for: .tabBar)
+        .task {
             viewModel.loadEntity()
             
             if self.viewModel.detailedAsset == nil {
-                PHAssetHelper.detailed(for: viewModel.asset) { detailedAsset in
-                    self.viewModel.detailedAsset = detailedAsset
-                }
+                let detailedAsset = await PHAssetHelper.detailed(for: viewModel.asset)
+                self.viewModel.detailedAsset = detailedAsset
             }
         }
     }

@@ -61,6 +61,7 @@ public extension AlbumStore {
     }
     
     func fetchOne(id: UUID) -> AlbumModel? {
+        if id == AlbumModel.noAlbum.id { return .noAlbum }
         return albums.first(where: { $0.id == id })
     }
     

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 public struct CornerRadius {
     
@@ -22,4 +23,23 @@ public struct CornerRadius {
     /// `Value = 32`
     public static let extraLarge: CGFloat = 32
     
+    @MainActor
+    public static var deviceRadius: CGFloat = UIScreen.main.displayCornerRadius
+    
+}
+
+extension UIScreen {
+    private static let cornerRadiusKey: String = {
+        let components = ["Radius", "Corner", "display", "_"]
+        return components.reversed().joined()
+    }()
+
+    public var displayCornerRadius: CGFloat {
+        guard let cornerRadius = self.value(forKey: Self.cornerRadiusKey) as? CGFloat else {
+            assertionFailure("Failed to detect screen corner radius")
+            return 0
+        }
+
+        return cornerRadius
+    }
 }
