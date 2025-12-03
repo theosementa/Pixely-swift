@@ -10,6 +10,8 @@ import SwiftUI
 import Navigation
 
 struct AssetsListView: View {
+    
+    // MARK: Dependencies
     let assets: [PHAsset]
     let columnsCount: Int = 5
     @Binding var assetsSelected: [PHAsset]
