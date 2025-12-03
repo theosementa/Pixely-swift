@@ -22,9 +22,6 @@ public final class AssetManager: NSObject, @unchecked Sendable {
     public private(set) var authorizationStatus: PHAuthorizationStatus = .notDetermined
     
     public var allAssets: [PHAsset] = []
-//    public var assetsWithoutAlbums: [PHAsset] = []
-    
-    public var hasAlbumsDisplayed: Bool = true
     
     public var isAuthorized: Bool {
            authorizationStatus == .authorized

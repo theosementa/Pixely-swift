@@ -17,6 +17,7 @@ extension GalleryScreen {
     @Observable @MainActor
     final class ViewModel {
         
+        var hasAlbumsDisplayed: Bool = false
         var isSelectModeEnabled: Bool = false
         var currentAssetsSelected: [PHAsset] = []
         var currentAlbumIdSelected: UUID = AlbumModel.noAlbum.id

@@ -14,7 +14,6 @@ import DesignSystem
 public struct GalleryScreen: View {
     
     @Dependency(\.assetManager) private var assetManager
-    @EnvironmentObject private var router: Router<AppDestination>
     
     @State private var viewModel: ViewModel = .init()
     
@@ -23,13 +22,13 @@ public struct GalleryScreen: View {
     // MARK: - View
     public var body: some View {
         AssetsListView(
-            assets: assetManager.hasAlbumsDisplayed ? assetManager.allAssets : assetManager.assetsWithoutAlbums,
+            assets: viewModel.hasAlbumsDisplayed ? assetManager.allAssets : assetManager.assetsWithoutAlbums,
             assetsSelected: $viewModel.currentAssetsSelected,
             isSelectModeEnabled: viewModel.isSelectModeEnabled
         )
         .scrollIndicators(.hidden)
         .background(Color.Background.bg50)
-        .toolbar(viewModel.isSelectModeEnabled ? .hidden : .visible, for: .tabBar)
+        .toolbar(viewModel.isSelectModeEnabled ? .hidden : .automatic, for: .tabBar)
         .overlay(alignment: .bottom) {
             if viewModel.isSelectModeEnabled {
                 MultiSelectionView(
@@ -41,28 +40,37 @@ public struct GalleryScreen: View {
         }
         .ignoresSafeArea(edges: .bottom)
         .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                @Bindable var assetManager = assetManager
-                Picker("", selection: $assetManager.hasAlbumsDisplayed) {
-                    Text("All pictures").tag(true)
-                    Text("Without albums").tag(false)
-                }
-                .labelsHidden()
-            }
-            
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    viewModel.isSelectModeEnabled.toggle()
-                } label: {
-                    if viewModel.isSelectModeEnabled {
-                        Image(systemName: "xmark")
-                    } else {
-                        Text("Select")
-                    }
-                }
+            ToolbarItem(placement: .topBarLeading) { filterAssetsPickerView }
+            ToolbarItem(placement: .topBarTrailing) { multiSelectionButtonView }
+        }
+    }
+}
+
+// MARK: - Subviews
+extension GalleryScreen {
+    
+    @ViewBuilder
+    var filterAssetsPickerView: some View {
+        @Bindable var assetManager = assetManager
+        Picker("", selection: $viewModel.hasAlbumsDisplayed) {
+            Text("All pictures").tag(true)
+            Text("Without albums").tag(false)
+        }
+        .labelsHidden()
+    }
+    
+    var multiSelectionButtonView: some View {
+        Button {
+            viewModel.isSelectModeEnabled.toggle()
+        } label: {
+            if viewModel.isSelectModeEnabled {
+                Image(systemName: "xmark")
+            } else {
+                Text("Select")
             }
         }
     }
+    
 }
 
 // MARK: - Preview

@@ -38,31 +38,17 @@ public struct AssetDetailScreen: View {
         }
         .fullSize()
         .background(Color.Background.bg50)
+        .toolbar(.hidden, for: .tabBar)
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                Picker(selection: $viewModel.albumSelectedId) {
-                    Section {
-                        ForEach(viewModel.parentAlbumsSelectable) { album in
-                            Text(album.name).tag(album.id)
-                        }
-                    } header: {
-                        Text("Albums")
-                    }
-
-                    Section {
-                        ForEach(viewModel.subAlbumsSelectable) { subAlbum in
-                            Text(subAlbum.name).tag(subAlbum.id)
-                        }
-                    } header: {
-                        Text("Subalbums")
-                    }
+                Button {
+                    router.push(.album(.selectAlbum(albumSelectedId: $viewModel.albumSelectedId)))
                 } label: {
                     HStack(spacing: Spacing.small) {
                         Image(systemName: "chevron.up.chevron.down")
                         Text(viewModel.albumSelected?.name ?? "")
                     }
                 }
-                .labelsHidden()
                 .onChange(of: viewModel.albumSelectedId) { _, newValue in
                     viewModel.onSelectNewAlbum(newValue)
                 }
@@ -89,7 +75,6 @@ public struct AssetDetailScreen: View {
                 .labelsHidden()
             }
         }
-        .toolbar(.hidden, for: .tabBar)
         .task {
             viewModel.loadEntity()
             
