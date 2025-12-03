@@ -36,6 +36,7 @@ public struct GalleryScreen: View {
                     currentAssetsSelected: $viewModel.currentAssetsSelected
                 )
                 .padding(4)
+                .transition(.move(edge: .bottom))
             }
         }
         .ignoresSafeArea(edges: .bottom)
@@ -61,7 +62,9 @@ extension GalleryScreen {
     
     var multiSelectionButtonView: some View {
         Button {
-            viewModel.isSelectModeEnabled.toggle()
+            withAnimation(.smooth) {
+                viewModel.isSelectModeEnabled.toggle()
+            }
         } label: {
             if viewModel.isSelectModeEnabled {
                 Image(systemName: "xmark")
